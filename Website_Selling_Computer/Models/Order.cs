@@ -10,7 +10,7 @@ namespace Website_Selling_Computer.Models
         public int OrderID { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }

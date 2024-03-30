@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.Models;
 
@@ -8,6 +9,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WebsiteSellingComputerDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+builder.Services.AddIdentity<User, IdentityRole>()
+ .AddDefaultTokenProviders()
+ .AddDefaultUI()
+ .AddEntityFrameworkStores<WebsiteSellingComputerDbContext>();
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,7 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
