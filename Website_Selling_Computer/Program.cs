@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Website_Selling_Computer.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<WebsiteSellingComputerDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
