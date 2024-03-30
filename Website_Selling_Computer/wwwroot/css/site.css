@@ -20,3 +20,100 @@ html {
 body {
   margin-bottom: 60px;
 }
+.cardCard {
+    background-color: #fff;
+    position: relative;
+    width: 350px;
+    border: none;
+}
+
+.percent {
+    width: 63px;
+    height: 30px;
+    position: absolute;
+    background: red;
+    color: #fff;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    border-bottom-left-radius: 15px;
+    padding: 10px;
+}
+
+.card-image {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.card-inner {
+    padding: 20px;
+}
+
+.price span {
+    color: orange;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.price sup {
+    color: orange;
+    font-weight: 600;
+    font-size: 14px;
+    top: -3px;
+}
+
+
+.details {
+    border-radius: 20px;
+    width: 110px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.wishlist {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #f7a754;
+    background: #fdeddc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s all;
+    font-size: 15px;
+}
+
+
+    .wishlist:hover {
+        color: #fff;
+        background: #f7a754;
+    }
+
+.cart {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s all;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+    .cart:hover {
+        background-color: lightgreen;
+        color: black;
+    }

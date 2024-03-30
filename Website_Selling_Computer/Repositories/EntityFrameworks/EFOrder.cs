@@ -1,0 +1,43 @@
+﻿using Website_Selling_Computer.Models;
+using Website_Selling_Computer.Repositories.Interfaces;
+using Website_Selling_Computer.DataAccess;
+using Microsoft.EntityFrameworkCore;
+namespace Website_Selling_Computer.Repositories.EntityFrameworks
+{
+    public class EFOrder : IOrder
+    {
+        private readonly WebsiteSellingComputerDbContext _context;
+        public EFOrder(WebsiteSellingComputerDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<IEnumerable<Order>> GetAllAsync()
+        {
+            
+            return await _context.Orders
+            .Include(p => p.User) 
+            .ToListAsync();
+        }
+        public async Task<Order> GetByIdAsync(int id)
+        {
+            
+            return await _context.Orders.Include(p => p.User).FirstOrDefaultAsync(p => p.OrderID == id);
+        }
+        public async Task AddAsync(Order order)
+        {
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(Order order)
+        {
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+        }
+    }
+}

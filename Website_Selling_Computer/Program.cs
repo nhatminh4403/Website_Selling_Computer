@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.Models;
+using Website_Selling_Computer.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WebsiteSellingComputerDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebsiteSellingComputerDbContext>();
+
+//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebsiteSellingComputerDbContext>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
  .AddDefaultTokenProviders()

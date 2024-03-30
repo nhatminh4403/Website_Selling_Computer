@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Website_Selling_Computer.DataAccess;
 
@@ -11,9 +12,11 @@ using Website_Selling_Computer.DataAccess;
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    partial class WebsiteSellingComputerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240330122424_ExtendIdentityUser")]
+    partial class ExtendIdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
