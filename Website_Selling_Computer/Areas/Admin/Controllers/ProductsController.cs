@@ -22,8 +22,10 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         private readonly I_Inventory _inventoryRepository;
         private readonly ICart _cartRepository;
         private readonly IManufacturer _manufacturerRepository;
+        private readonly WebsiteSellingComputerDbContext _websiteSellingComputerDbContext;
         public ProductsController(IProduct productRepository,IProductCategory productCategoryRepository,
-            ICart cartRepo, IOrder orderRepo, I_Inventory inventoryRepo, IManufacturer manufacturerRepo)
+            ICart cartRepo, IOrder orderRepo, I_Inventory inventoryRepo,
+            IManufacturer manufacturerRepo, WebsiteSellingComputerDbContext dbContext)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
@@ -31,6 +33,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             _inventoryRepository = inventoryRepo;
             _manufacturerRepository = manufacturerRepo;
             _cartRepository = cartRepo;
+            _websiteSellingComputerDbContext = dbContext;
         }
 
         // GET: Admin/Products
@@ -40,7 +43,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             return View(product);
         }
 
-        private async Task<string> SaveImage(IFormFile image)
+   /*     private async Task<int> SaveImage(IFormFile image)
         {
             var savePath = Path.Combine("wwwroot/images", image.FileName); //
 
@@ -48,8 +51,8 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             {
                 await image.CopyToAsync(fileStream);
             }
-            return "/images/" + image.FileName;
-        }
+            return "/images/" + image.FileName ;
+        }*/
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -64,14 +67,15 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             var categories = await _productCategoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+            ViewBag.Categories = new SelectList(categories, "CategoryID", "Description");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images)
+        public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images, int productID)
         {
+            var image = _productRepository.GetByIdAsync(productID);
             if (ModelState.IsValid)
             {
                /* if(imageUrl != null)
