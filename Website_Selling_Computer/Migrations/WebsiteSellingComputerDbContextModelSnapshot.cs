@@ -209,9 +209,6 @@ namespace Website_Selling_Computer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryID"));
 
-                    b.Property<int>("ManufacturerID")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
@@ -222,8 +219,6 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("InventoryID");
-
-                    b.HasIndex("ManufacturerID");
 
                     b.HasIndex("ProductID");
 
@@ -324,12 +319,10 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MainImageID")
-                        .IsRequired()
+                    b.Property<string>("MainImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturerID")
@@ -338,9 +331,6 @@ namespace Website_Selling_Computer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductCategoryCategoryID")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -348,9 +338,9 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("ManufacturerID");
+                    b.HasIndex("CategoryID");
 
-                    b.HasIndex("ProductCategoryCategoryID");
+                    b.HasIndex("ManufacturerID");
 
                     b.ToTable("Products");
                 });
@@ -614,19 +604,11 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Inventory", b =>
                 {
-                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
-                        .WithMany("Inventories")
-                        .HasForeignKey("ManufacturerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Website_Selling_Computer.Models.Product", "Product")
                         .WithMany("Inventories")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Manufacturer");
 
                     b.Navigation("Product");
                 });
@@ -663,15 +645,15 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Product", b =>
                 {
-                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerID")
+                    b.HasOne("Website_Selling_Computer.Models.ProductCategory", "ProductCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Website_Selling_Computer.Models.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryCategoryID")
+                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
+                        .WithMany()
+                        .HasForeignKey("ManufacturerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -694,7 +676,7 @@ namespace Website_Selling_Computer.Migrations
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductImage", b =>
                 {
                     b.HasOne("Website_Selling_Computer.Models.Product", "Product")
-                        .WithMany("ProductImage")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -705,11 +687,6 @@ namespace Website_Selling_Computer.Migrations
             modelBuilder.Entity("Website_Selling_Computer.Models.Cart", b =>
                 {
                     b.Navigation("CartDetails");
-                });
-
-            modelBuilder.Entity("Website_Selling_Computer.Models.Manufacturer", b =>
-                {
-                    b.Navigation("Inventories");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>
@@ -728,7 +705,7 @@ namespace Website_Selling_Computer.Migrations
                     b.Navigation("ProductDetail")
                         .IsRequired();
 
-                    b.Navigation("ProductImage");
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductCategory", b =>

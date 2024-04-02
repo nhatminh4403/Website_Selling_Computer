@@ -21,10 +21,6 @@ builder.Services.AddDbContext<WebsiteSellingComputerDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebsiteSellingComputerDbContext>();
-
-//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<WebsiteSellingComputerDbContext>();
-
 builder.Services.AddIdentity<User, IdentityRole>()
  .AddDefaultTokenProviders()
  .AddDefaultUI()

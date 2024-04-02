@@ -6,17 +6,10 @@ namespace Website_Selling_Computer.DataAccess
 {
     public class WebsiteSellingComputerDbContext : IdentityDbContext<User>
     {
-        public WebsiteSellingComputerDbContext(DbContextOptions<WebsiteSellingComputerDbContext> options) : base(options) { }
+        public WebsiteSellingComputerDbContext(DbContextOptions<WebsiteSellingComputerDbContext> options) : base(options)
+        {
+        }
 
-        //       protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //       {
-        //           base.OnModelCreating(modelBuilder);
-        //
-        //           modelBuilder.Entity<User>()
-        //               .HasOne(u => u.Cart)
-        //               .WithOne(c => c.User)
-        //               .HasForeignKey<Cart>(c => c.UserID);
-        //       }
 
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartDetail> CartDetails { get; set; }

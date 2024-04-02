@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Website_Selling_Computer.Models
 {
@@ -16,7 +17,5 @@ namespace Website_Selling_Computer.Models
         [StringLength(500)]
         public string ContactInfo { get; set; }
 
-        // Navigation property for related Inventories
-        public virtual ICollection<Inventory> Inventories { get; set; }
     }
 }

@@ -7,14 +7,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Website_Selling_Computer.DataAccess;
 
-
 #nullable disable
 
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    [Migration("20240330103412_Initial")]
-    partial class Initial
+    [Migration("20240402150138_InsertData")]
+    partial class InsertData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,80 +75,6 @@ namespace Website_Selling_Computer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -287,9 +212,6 @@ namespace Website_Selling_Computer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryID"));
 
-                    b.Property<int>("ManufacturerID")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
@@ -300,8 +222,6 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("InventoryID");
-
-                    b.HasIndex("ManufacturerID");
 
                     b.HasIndex("ProductID");
 
@@ -402,12 +322,10 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MainImageID")
-                        .IsRequired()
+                    b.Property<string>("MainImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturerID")
@@ -416,9 +334,6 @@ namespace Website_Selling_Computer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductCategoryCategoryID")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -426,9 +341,9 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("ManufacturerID");
+                    b.HasIndex("CategoryID");
 
-                    b.HasIndex("ProductCategoryCategoryID");
+                    b.HasIndex("ManufacturerID");
 
                     b.ToTable("Products");
                 });
@@ -531,11 +446,26 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.User", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -547,7 +477,51 @@ namespace Website_Selling_Computer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -561,7 +535,7 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Website_Selling_Computer.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -570,7 +544,7 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Website_Selling_Computer.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -585,7 +559,7 @@ namespace Website_Selling_Computer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Website_Selling_Computer.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -594,7 +568,7 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Website_Selling_Computer.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -633,19 +607,11 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Inventory", b =>
                 {
-                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
-                        .WithMany("Inventories")
-                        .HasForeignKey("ManufacturerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Website_Selling_Computer.Models.Product", "Product")
                         .WithMany("Inventories")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Manufacturer");
 
                     b.Navigation("Product");
                 });
@@ -682,15 +648,15 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Product", b =>
                 {
-                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerID")
+                    b.HasOne("Website_Selling_Computer.Models.ProductCategory", "ProductCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Website_Selling_Computer.Models.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryCategoryID")
+                    b.HasOne("Website_Selling_Computer.Models.Manufacturer", "Manufacturer")
+                        .WithMany()
+                        .HasForeignKey("ManufacturerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -713,7 +679,7 @@ namespace Website_Selling_Computer.Migrations
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductImage", b =>
                 {
                     b.HasOne("Website_Selling_Computer.Models.Product", "Product")
-                        .WithMany("ProductImage")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -724,11 +690,6 @@ namespace Website_Selling_Computer.Migrations
             modelBuilder.Entity("Website_Selling_Computer.Models.Cart", b =>
                 {
                     b.Navigation("CartDetails");
-                });
-
-            modelBuilder.Entity("Website_Selling_Computer.Models.Manufacturer", b =>
-                {
-                    b.Navigation("Inventories");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>
@@ -747,7 +708,7 @@ namespace Website_Selling_Computer.Migrations
                     b.Navigation("ProductDetail")
                         .IsRequired();
 
-                    b.Navigation("ProductImage");
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductCategory", b =>

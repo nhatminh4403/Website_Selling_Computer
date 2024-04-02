@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -29,10 +30,10 @@ namespace Website_Selling_Computer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -41,7 +42,6 @@ namespace Website_Selling_Computer.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -235,11 +235,10 @@ namespace Website_Selling_Computer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ManufacturerID = table.Column<int>(type: "int", nullable: false),
-                    MainImageID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductCategoryCategoryID = table.Column<int>(type: "int", nullable: false)
+                    MainImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,8 +250,8 @@ namespace Website_Selling_Computer.Migrations
                         principalColumn: "ManufacturerID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_ProductCategories_ProductCategoryCategoryID",
-                        column: x => x.ProductCategoryCategoryID,
+                        name: "FK_Products_ProductCategories_CategoryID",
+                        column: x => x.CategoryID,
                         principalTable: "ProductCategories",
                         principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
@@ -293,26 +292,18 @@ namespace Website_Selling_Computer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     QuantityInStock = table.Column<int>(type: "int", nullable: false),
-                    ReorderLevel = table.Column<int>(type: "int", nullable: false),
-                    ManufacturerID = table.Column<int>(type: "int", nullable: false)
+                    ReorderLevel = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inventory", x => x.InventoryID);
                     table.ForeignKey(
-                        name: "FK_Inventory_Manufacturers_ManufacturerID",
-                        column: x => x.ManufacturerID,
-                        principalTable: "Manufacturers",
-                        principalColumn: "ManufacturerID",
-                        onDelete: ReferentialAction.NoAction); // This line is modified
-                    table.ForeignKey(
                         name: "FK_Inventory_Products_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ProductID",
-                        onDelete: ReferentialAction.NoAction); // This line is modified
+                        onDelete: ReferentialAction.NoAction);
                 });
-
 
             migrationBuilder.CreateTable(
                 name: "OrderDetails",
@@ -444,11 +435,6 @@ namespace Website_Selling_Computer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventory_ManufacturerID",
-                table: "Inventory",
-                column: "ManufacturerID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Inventory_ProductID",
                 table: "Inventory",
                 column: "ProductID");
@@ -474,14 +460,14 @@ namespace Website_Selling_Computer.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryID",
+                table: "Products",
+                column: "CategoryID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_ManufacturerID",
                 table: "Products",
                 column: "ManufacturerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductCategoryCategoryID",
-                table: "Products",
-                column: "ProductCategoryCategoryID");
         }
 
         /// <inheritdoc />

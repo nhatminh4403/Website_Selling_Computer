@@ -15,15 +15,11 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         {
 
             return await _context.Inventory
-            .Include(p => p.Product)
-            .Include(p=>p.Manufacturer)
             .ToListAsync();
         }
         public async Task<Inventory> GetByIdAsync(int id)
         {
             return await _context.Inventory
-            .Include(p => p.Product)
-            .Include(p => p.Manufacturer)
             .FirstOrDefaultAsync();
         }
         public async Task AddAsync(Inventory inventory)

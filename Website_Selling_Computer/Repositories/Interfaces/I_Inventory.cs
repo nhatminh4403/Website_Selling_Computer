@@ -1,4 +1,7 @@
-﻿using Website_Selling_Computer.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Website_Selling_Computer.Models;
+
 namespace Website_Selling_Computer.Repositories.Interfaces
 {
     public interface I_Inventory

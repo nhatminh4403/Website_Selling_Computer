@@ -10,6 +10,7 @@ namespace Website_Selling_Computer.Models
         public int ImageID { get; set; }
 
         [Required]
+        [ForeignKey("Product")]
         public int ProductID { get; set; }
 
         [Required]

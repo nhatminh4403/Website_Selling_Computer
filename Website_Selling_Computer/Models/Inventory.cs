@@ -18,13 +18,6 @@ namespace Website_Selling_Computer.Models
         [Required]
         public int ReorderLevel { get; set; }
 
-        [Required]
-        public int ManufacturerID { get; set; }
-
-        // Navigation property for related Supplier
-        [ForeignKey("ManufacturerID")]
-        public virtual Manufacturer Manufacturer { get; set; }
-
         // Navigation property for related Product
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }
