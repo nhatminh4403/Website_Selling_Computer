@@ -1,7 +1,11 @@
 ﻿@model Website_Selling_Computer.Models.Product
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using Microsoft.AspNetCore.Identity
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit"; Layout = "_Layout";
 }
 
 <h1>Edit</h1>
@@ -10,7 +14,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductID" />
             <div class="form-group">
@@ -20,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryID" class="control-label"></label>
-                <input asp-for="CategoryID" class="form-control" />
+                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.Categories"></select>
                 <span asp-validation-for="CategoryID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,12 +39,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="ManufacturerID" class="control-label"></label>
-                <select asp-for="ManufacturerID" class="form-control" asp-items="ViewBag.ManufacturerID"></select>
+                <select asp-for="ManufacturerID" class="form-control" asp-items="ViewBag.Manufacturers"></select>
                 <span asp-validation-for="ManufacturerID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MainImage" class="control-label"></label>
-                <input asp-for="MainImage" class="form-control" />
+                <input asp-for="MainImage" class="form-control" type="file"/>
                 <span asp-validation-for="MainImage" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,9 +52,27 @@
             </div>
         </form>
     </div>
+    <div class="col-8">
+        <img src="@Model.MainImage" alt="Product Image" style="width:200px" id="previewImage" />
+    </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById("previewImage")
+                    img.src = e.target.result
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

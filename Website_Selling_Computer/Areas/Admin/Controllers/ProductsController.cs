@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
 using Website_Selling_Computer.Models;
 using Website_Selling_Computer.Repositories.Interfaces;
-
 namespace Website_Selling_Computer.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -18,22 +17,18 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
     {
         private readonly IProduct _productRepository;
         private readonly IProductCategory _productCategoryRepository;
-        private readonly IOrder _orderRepo;
-        private readonly I_Inventory _inventoryRepository;
-        private readonly ICart _cartRepository;
         private readonly IManufacturer _manufacturerRepository;
+        private readonly IProductDetails _productDetailsRepository;
+
         private readonly WebsiteSellingComputerDbContext _websiteSellingComputerDbContext;
         public ProductsController(IProduct productRepository,IProductCategory productCategoryRepository,
-            ICart cartRepo, IOrder orderRepo, I_Inventory inventoryRepo,
-            IManufacturer manufacturerRepo, WebsiteSellingComputerDbContext dbContext)
+            WebsiteSellingComputerDbContext dbContext, IManufacturer manufacturerRepo, IProductDetails productDetailsRepository)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
-            _orderRepo = orderRepo;
-            _inventoryRepository = inventoryRepo;
             _manufacturerRepository = manufacturerRepo;
-            _cartRepository = cartRepo;
             _websiteSellingComputerDbContext = dbContext;
+            _productDetailsRepository = productDetailsRepository;
         }
 
         // GET: Admin/Products
@@ -43,7 +38,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             return View(product);
         }
 
-   /*     private async Task<int> SaveImage(IFormFile image)
+        private async Task<string> SaveImage(IFormFile image)
         {
             var savePath = Path.Combine("wwwroot/images", image.FileName); //
 
@@ -52,55 +47,61 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
                 await image.CopyToAsync(fileStream);
             }
             return "/images/" + image.FileName ;
-        }*/
+        }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _productRepository.GetByIdAsync(id);
-            if(product == null)
+            var productDetails = await _productDetailsRepository.GetProductDetailsByIdAsync(id);
+
+            if(productDetails == null) 
             {
                 return NoContent();
             }
-            return View(product);
+
+            return View(productDetails);
         }
 
         // GET: Admin/Products/Create
         public async Task<IActionResult> Create()
         {
             var categories = await _productCategoryRepository.GetAllAsync();
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "CategoryID", "Description");
+            ViewBag.Manufacturers = new SelectList(manufacturers, "ManufacturerID", "ManufacturerName");
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images, int productID)
+        public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images)
         {
-            var image = _productRepository.GetByIdAsync(productID);
+
             if (ModelState.IsValid)
             {
-               /* if(imageUrl != null)
+                if(imageUrl != null)
                 {
-                    product.MainImageID = await SaveImage(imageUrl);
+                    product.MainImage = await SaveImage(imageUrl);
                 }
                 if(images != null)
                 {
-                    product.ProductImage = new List<ProductImage>();
+                    product.ProductImages = new List<ProductImage>();
                     foreach(var item in images)
                     {
-                        ProductImage image = new ProductImage
+                        ProductImage imageCollection = new ProductImage
                         {
                             ProductID = product.ProductID,
                             ImageUrl =await SaveImage(item),
                         };
-                        product.ProductImage.Add(image);
+                        product.ProductImages.Add(imageCollection);
                     }
-                }*/
+                }
                 await  _productRepository.AddAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
                 var category = await _productCategoryRepository.GetAllAsync();
+                var manufacturers = await _manufacturerRepository.GetAllAsync();
+                ViewBag.Manufacturers = new SelectList(manufacturers, "ManufacturerID", "ManufacturerName");
                 ViewBag.Categories = new SelectList(category, "CategoryID", "Description");    
                 return View(product);
             }
@@ -117,6 +118,8 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             }
 
             var category = await _productCategoryRepository.GetAllAsync();
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
+            ViewBag.Manufacturers = new SelectList(manufacturers, "ManufacturerID", "ManufacturerName");
             ViewBag.Categories = new SelectList(category, "CategoryID", "Description");
             return View(product);
         }
@@ -125,7 +128,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product, IFormFile imageUrl)
         {
-            ModelState.Remove("ImageUrl");
+            ModelState.Remove("MainImage");
 
             if (id != product.ProductID)
             {
@@ -135,20 +138,22 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             {
                 var existingProduct = await _productRepository.GetByIdAsync(id);
 
-               /* if (imageUrl == null)
+                if (imageUrl == null)
                 {
-                    product.MainImageID = existingProduct.MainImageID;
+                    product.MainImage = existingProduct.MainImage;
                 }
                 else
                 {
                     // Lưu hình ảnh mới
-                    product.MainImageID = await SaveImage(imageUrl);
-                }*/
+                    product.MainImage = await SaveImage(imageUrl);
+                }
                 existingProduct.ProductName= product.ProductName;
                 existingProduct.Price = product.Price;
                 existingProduct.Description = product.Description;
                 existingProduct.CategoryID = product.CategoryID;
-            /*    existingProduct.MainImageID = product.MainImageID;*/
+                existingProduct.MainImage = product.MainImage;
+                existingProduct.ManufacturerID = product.ManufacturerID;
+
                 await _productRepository.UpdateAsync(existingProduct);
                 return RedirectToAction(nameof(Index));
             }

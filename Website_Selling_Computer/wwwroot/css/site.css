@@ -20,6 +20,58 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+.card-img-top {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-innerFixedRatio {
+    padding: 10px;
+}
+
+/* Adjust styles as needed */
+
+#button-no-outline {
+    border: 1px solid transparent;
+}
+.btn-edit {
+    border-color: black;
+    background-color: black;
+    color: white;
+}
+
+    .btn-edit:hover {
+        border-color: black;
+        background-color: white;
+        color: black;
+    }
+
+.btn-detail {
+    border-color: black;
+    background-color: white;
+    color: black;
+}
+
+    .btn-detail:hover {
+        background-color: black;
+        color: white;
+    }
+
+.btn-delete {
+    border-color: black;
+    background-color: black;
+    color: white;
+}
+
+    .btn-delete:hover {
+        border-color: black;
+        background-color: white;
+        color: black;
+    }
 .cardCard {
     background-color: #fff;
     position: relative;

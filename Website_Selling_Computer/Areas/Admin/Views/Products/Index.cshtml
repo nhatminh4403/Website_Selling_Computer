@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<Website_Selling_Computer.Models.Product>
-
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using Microsoft.AspNetCore.Identity
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index"; Layout = "_Layout";
 }
 
 <h1>Index</h1>
@@ -16,13 +19,16 @@
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCategory)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Manufacturer)
@@ -37,13 +43,16 @@
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                    <span>@item.Price.ToString("#,##0") Vnđ</span>
+            </td>
+            <td>
+                    <img src="@Html.DisplayFor(modelItem => item.MainImage)" width="250px">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCategory.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)

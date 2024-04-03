@@ -1,21 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Website_Selling_Computer.Models;
-
+using Website_Selling_Computer.Repositories.Interfaces;
 namespace Website_Selling_Computer.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProduct _productRepo;
+        public HomeController(ILogger<HomeController> logger, IProduct productRepo)
         {
             _logger = logger;
+            _productRepo = productRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productRepo.GetAllAsync();    
+            return View(products);
         }
 
         public IActionResult Privacy()

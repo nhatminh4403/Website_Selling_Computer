@@ -1,7 +1,12 @@
 ﻿@model Website_Selling_Computer.Models.Product
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "_Layout";
 }
 
 <h1>Create</h1>
@@ -10,7 +15,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create", enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
@@ -19,8 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryID" class="control-label"></label>
-                <input asp-for="CategoryID" class="form-control" />
-                <span asp-validation-for="CategoryID" class="text-danger"></span>
+                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.Categories"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -34,16 +38,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="ManufacturerID" class="control-label"></label>
-                <select asp-for="ManufacturerID" class ="form-control" asp-items="ViewBag.ManufacturerID"></select>
+                <select asp-for="ManufacturerID" class="form-control" asp-items="ViewBag.Manufacturers"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="MainImage" class="control-label"></label>
+                <input asp-for="MainImage" class="form-control" type="file" accept="image/*" />
+                <span asp-validation-for="MainImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductImages" class="control-label"></label>
+                <input type="file" asp-for="ProductImages" class="form-control" multiple accept="image/*" />
+                <span asp-validation-for="ProductImages" class="text-danger"></span>
+            </div>
+            <br />
+            <hr />
+            <div class="form-group">
+                <span>
+                    <input type="submit" value="Thêm mới" class="btn btn-success" />
+                    | <a href="@Url.Action("Index", "Products", new { area = "Admin" })" class="btn btn-warning"> Trở về danh sách</a>
+                </span>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

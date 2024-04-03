@@ -1,7 +1,11 @@
 ﻿@model Website_Selling_Computer.Models.ProductCategory
-
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using Microsoft.AspNetCore.Identity
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create"; Layout = "_Layout";
+
 }
 
 <h1>Create</h1>
