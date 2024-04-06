@@ -14,10 +14,11 @@ namespace Website_Selling_Computer.Models
 
         [Required]
         public int ProductID { get; set; }
-
+        public string ProductName { get; set; }
+        public string ProductCategoryDescription { get; set; } 
         [Required]
         public int Quantity { get; set; }
-
+        public decimal Price { get; set; }
         // Navigation properties
         [ForeignKey("CartID")]
         public virtual Cart Cart { get; set; }

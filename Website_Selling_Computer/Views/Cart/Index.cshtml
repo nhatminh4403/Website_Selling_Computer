@@ -1,0 +1,75 @@
+﻿@model Cart
+@using Website_Selling_Computer.Models
+@using Website_Selling_Computer.DataAccess
+@using Website_Selling_Computer.Session
+@{
+    ViewData["Title"] = "Index";
+    decimal total = Model.Items.Sum(item => item.Price * item.Quantity);
+    int totalQuantity = Model.Items.Sum(item => item.Quantity);
+}
+
+<h2>Giỏ hàng</h2>
+<h3 class="mb-0">Bạn có @totalQuantity sản phẩm trong giỏ</h3>
+<span>
+    Tổng giá tiền: @total.ToString("#,##0") Vnđ
+</span>
+<br />
+<section>
+    @foreach (var item in Model.Items)
+    {
+        <br />
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="ms-3">
+                            <h5>@item.ProductName</h5>
+                            <p class="small mb-0">@item.ProductCategoryDescription</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <div style="width: 300px;">
+                            <div class="d-flex align-items-center">
+                              @*  <form asp-controller="Cart" asp-action="Increase" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductID" />
+                                    <button type="submit" class="btn btn-sm btn-primary">+</button>
+                            </form>*@
+                                <div class="mx-2">
+                                    <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                </div>
+                              @*  <form asp-controller="Cart" asp-action="Increase" method="post">
+                                @if (item.Quantity > 1)
+                                {
+                                    <form asp-controller="ShoppingCart" asp-action="Decrease" method="post">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-sm btn-secondary">-</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="RemoveFromCart" asp-route-productId="@item.ProductId" method="post">
+                                        <button type="submit" class="btn btn-sm btn-secondary">-</button>
+                                    </form>
+                            }*@
+                            </div>
+                        </div>
+                        <div style="width: 80px;">
+                            <h5 class="mb-0">@item.Price.ToString("#,##0") Vnđ</h5>
+                        </div>
+                        <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductID" class="btn btn-edit"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.Items.Count == 0)
+    {
+        <p>Cart is empty.</p>
+    }
+    else
+    {
+        <div>
+            <a asp-action="Checkout" class="btn btn-edit"><i class="fa-solid fa-check" aria-hidden="true"></i></a>
+        </div>
+    }
+</section>

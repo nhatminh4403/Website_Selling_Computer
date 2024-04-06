@@ -38,7 +38,7 @@ else
                     <div class="col">
                         <div class="card">
                             <div class="card-image">
-                                <a asp-action="Details" asp-route-id="@item.ProductID" class="btn">
+                                <a asp-action="Details" asp-area="Admin" asp-controller="Products" asp-route-id="@item.ProductID" class="btn">
                                     <img src="@Html.DisplayFor(modelItem => item.MainImage)" alt="Product Image" class="card-img-top">
                                 </a>
                             </div>
@@ -54,7 +54,7 @@ else
                                     <div class="d-flex flex-row">
                                         <span class="wishlist" title="Yêu thích"><i class="fa fa-heart"></i></span>
                                         <span title="Thêm vào giỏ hàng">
-                                            <a asp-controller="ShoppingCart" asp-action="AddToCart"
+                                            <a asp-controller="Cart" asp-action="AddToCart"
                                                asp-route-productId="@item.ProductID" asp-route-quantity="@numOfQuantity">
                                                 <button class="cart" id="button-no-outline">
                                                     <i class="fa fa-shopping-cart"></i>

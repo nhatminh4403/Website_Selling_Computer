@@ -172,7 +172,7 @@ namespace Website_Selling_Computer.Migrations
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.CartDetail", b =>
@@ -198,7 +198,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("CartDetails");
+                    b.ToTable("CartDetails", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Inventory", b =>
@@ -222,7 +222,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("Inventory");
+                    b.ToTable("Inventory", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Manufacturer", b =>
@@ -245,7 +245,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasKey("ManufacturerID");
 
-                    b.ToTable("Manufacturers");
+                    b.ToTable("Manufacturers", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>
@@ -275,7 +275,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.OrderDetail", b =>
@@ -304,7 +304,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Product", b =>
@@ -342,7 +342,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("ManufacturerID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductCategory", b =>
@@ -360,7 +360,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("ProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductDetail", b =>
@@ -415,7 +415,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.ToTable("ProductDetails");
+                    b.ToTable("ProductDetails", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.ProductImage", b =>
@@ -438,7 +438,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.User", b =>
