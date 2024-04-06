@@ -32,7 +32,9 @@ namespace Website_Selling_Computer.Controllers
         {
             return View(new Order());
         }
-        [HttpPost]
+
+
+        /*[HttpPost]
         public async Task<IActionResult> Checkout(Order order)
         {
             var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
@@ -107,6 +109,6 @@ namespace Website_Selling_Computer.Controllers
                 HttpContext.Session.SetObjectAsJson("Cart", cart);
             }
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }
