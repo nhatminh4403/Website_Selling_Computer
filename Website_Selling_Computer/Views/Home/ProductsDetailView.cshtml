@@ -1,0 +1,83 @@
+﻿@model Website_Selling_Computer.Models.ProductDetail
+
+@{
+    ViewData["Title"] = "ProductsDetailView";
+}
+
+<h2>Chi tiết sản phẩm</h2>
+<div class="row">
+    <hr />
+    <div class="col-md-6">
+        <h4>ProductDetail</h4>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CPU)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CPU)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RAM)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RAM)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Storage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Storage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Display)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Display)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.GraphicsCard)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GraphicsCard)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.OperatingSystem)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OperatingSystem)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BatteryLife)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BatteryLife)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Weight)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Weight)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Warranty)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Warranty)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Product)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Product.ProductName)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <img src="@Model.Product.MainImage" alt="Product Image" class="img-fluid" width="250px" />
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index" asp-route-area="">Back to List</a>
+</div>
+

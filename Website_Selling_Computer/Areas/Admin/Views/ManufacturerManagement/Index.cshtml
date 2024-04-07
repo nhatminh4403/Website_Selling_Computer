@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Website_Selling_Computer.Models.Product>
+﻿@model IEnumerable<Website_Selling_Computer.Models.Manufacturer>
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
@@ -16,22 +16,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @Html.DisplayNameFor(model => model.ManufacturerName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.ContactInfo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MainImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
+                <p>Ảnh NSX</p>
             </th>
             <th></th>
         </tr>
@@ -40,26 +31,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+                @Html.DisplayFor(modelItem => item.ManufacturerName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                    <span>@item.Price.ToString("#,##0") Vnđ</span>
-            </td>
-            <td>
-                    <img src="@Html.DisplayFor(modelItem => item.MainImage)" width="250px">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCategory.Description)
+                <a href="@item.ContactInfo">@item.ContactInfo</a>
             </td>
             <td>
                     @{
                         switch (item.ManufacturerID)
                         {
                             case 1:
-                                <img src="~/manufacturerPictures/dell.png" width="69px" />
+                                <img src="~/manufacturerPictures/dell.png" width="69px"/>
                                 break;
                             case 2:
                                 <img src="~/manufacturerPictures/hp.png" width="69px" />
@@ -80,9 +62,8 @@
                     }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ManufacturerID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.ManufacturerID">Delete</a>
             </td>
         </tr>
 }

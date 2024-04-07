@@ -38,7 +38,7 @@ else
                     <div class="col">
                         <div class="card">
                             <div class="card-image">
-                                <a asp-action="Details" asp-area="Admin" asp-controller="Products" asp-route-id="@item.ProductID" class="btn">
+                                <a asp-action="ProductsDetailView" asp-area="" asp-controller="Home" asp-route-id="@item.ProductID" class="btn">
                                     <img src="@Html.DisplayFor(modelItem => item.MainImage)" alt="Product Image" class="card-img-top">
                                 </a>
                             </div>
@@ -46,6 +46,7 @@ else
                                 <div class="text-center">
                                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
                                     <p class="text-muted mb-4">@Html.DisplayFor(modelItem => item.ProductCategory.Description)</p>
+                                    <p class="text-muted mb-4">@Html.DisplayFor(modelItem=> item.Manufacturer.ManufacturerName)</p>
                                 </div>
                                 <div class="price">
                                     <span>@item.Price.ToString("#,##0") Vnđ</span>
@@ -75,7 +76,7 @@ else
                             else
                             {
                                 <div class="container py-5 text-center">
-                                    | <a asp-area="Admin" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" class="btn btn-detail">Xem chi tiết</a> |
+                                    | <a asp-area="" asp-controller="Home" asp-action="ProductsDetailView" asp-route-id="@item.ProductID" class="btn btn-detail">Xem chi tiết</a> |
                                 </div>
                             }
                         </div>

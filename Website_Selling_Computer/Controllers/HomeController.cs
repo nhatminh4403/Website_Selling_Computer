@@ -8,10 +8,14 @@ namespace Website_Selling_Computer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProduct _productRepo;
-        public HomeController(ILogger<HomeController> logger, IProduct productRepo)
+        private readonly IProductCategory _productCategoryRepo;
+        private readonly IProductDetails _productDetailsRepo;
+        public HomeController(ILogger<HomeController> logger, IProduct productRepo,IProductCategory productCategory,IProductDetails productDetails)
         {
             _logger = logger;
             _productRepo = productRepo;
+            _productCategoryRepo = productCategory;
+            _productDetailsRepo = productDetails;
         }
 
         public async Task<IActionResult> Index()
@@ -20,6 +24,16 @@ namespace Website_Selling_Computer.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> GetCategoriesView()
+        {
+            var categories = await _productCategoryRepo.GetAllAsync();
+            return View(categories);
+        }
+        public async Task<IActionResult> ProductsDetailView(int id)
+        {
+            var productsDetail = await _productDetailsRepo.GetProductDetailsByIdAsync(id);
+            return View(productsDetail);
+        }
         public IActionResult Privacy()
         {
             return View();
