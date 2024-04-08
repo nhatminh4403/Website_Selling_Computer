@@ -13,7 +13,7 @@ namespace Website_Selling_Computer.Migrations
             //Enter data for the Manufacturers table
             migrationBuilder.InsertData(
                 table: "Manufacturers",
-                columns: new[] { "ManufacturerID", "ManufacturerName", "ContactInfo" },
+                columns: new[] { "ManufacturerID", "ManufacturerName", "ContactInfo"},
                 values: new object[,] {
                     {1, "DELL", "https://www.dell.com/en-us/lp/contact-us" },
                     {2, "HP", "https://www.hp.com/us-en/contact-hp/shopping.html" },
