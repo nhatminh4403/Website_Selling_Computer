@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Website_Selling_Computer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class index : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,8 +60,8 @@ namespace Website_Selling_Computer.Migrations
                     ManufacturerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ManufacturerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactInfo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
-
+                    ContactInfo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ManufacturerImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,9 +266,9 @@ namespace Website_Selling_Computer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CartID = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductCategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type:"nvarchar(max)",nullable:false),
-                    ProductCategoryDescription = table.Column<string>(type:"nvarchar(max)",nullable:false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -306,7 +306,7 @@ namespace Website_Selling_Computer.Migrations
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ProductID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

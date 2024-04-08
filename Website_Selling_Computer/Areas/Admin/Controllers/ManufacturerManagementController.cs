@@ -17,10 +17,20 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         {
             _manufacturerRepo = manufacturerRepo;
         }
+        private async Task<string> SaveImage(IFormFile image)
+        {
+            var savePath = Path.Combine("wwwroot/manufacturerPictures", image.FileName); //
+
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+            return "/manufacturerPictures/" + image.FileName;
+        }
         public async Task<IActionResult> Index()
         {
-            var manufaturers = await _manufacturerRepo.GetAllAsync();
-            return View(manufaturers);
+            var manufacturers = await _manufacturerRepo.GetAllAsync();
+            return View(manufacturers);
         }
         public IActionResult Create()
         {
@@ -29,10 +39,14 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Manufacturer manufacturer)
+        public async Task<IActionResult> Create(Manufacturer manufacturer, IFormFile imageUrl)
         {
             if (ModelState.IsValid)
             {
+                if (imageUrl != null)
+                {
+                    manufacturer.ManufacturerImage = await SaveImage(imageUrl);
+                }
                 await _manufacturerRepo.AddAsync(manufacturer);
                 return RedirectToAction(nameof(Index));
             }
@@ -51,18 +65,22 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Manufacturer category)
+        public async Task<IActionResult> Edit(int id, Manufacturer manufacturer, IFormFile ManufacturerImage)
         {
-            if (id != category.ManufacturerID)
+            if (id != manufacturer.ManufacturerID)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
-                await _manufacturerRepo.UpdateAsync(category);
+
+              //  var existingManufacturer = await _manufacturerRepo.GetByIdAsync(id);
+
+                if (ManufacturerImage != null)
+                {
+                    manufacturer.ManufacturerImage = await SaveImage(ManufacturerImage);
+                }
+  
+                await _manufacturerRepo.UpdateAsync(manufacturer);
                 return RedirectToAction(nameof(Index));
-            }
-            return View(category);
         }
 
         // GET: Admin/ProductCategories/Delete/5

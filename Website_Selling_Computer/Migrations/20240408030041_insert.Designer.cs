@@ -12,8 +12,8 @@ using Website_Selling_Computer.DataAccess;
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    [Migration("20240402150138_InsertData")]
-    partial class InsertData
+    [Migration("20240408030041_insert")]
+    partial class insert
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,8 +189,19 @@ namespace Website_Selling_Computer.Migrations
                     b.Property<int>("CartID")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductCategoryDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -240,6 +251,10 @@ namespace Website_Selling_Computer.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ManufacturerImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ManufacturerName")
                         .IsRequired()

@@ -16,5 +16,7 @@ namespace Website_Selling_Computer.Models
 
         [StringLength(500)]
         public string ContactInfo { get; set; }
+
+        public string ManufacturerImage { get; set; }
     }
 }

@@ -37,29 +37,7 @@
                 <a href="@item.ContactInfo">@item.ContactInfo</a>
             </td>
             <td>
-                    @{
-                        switch (item.ManufacturerID)
-                        {
-                            case 1:
-                                <img src="~/manufacturerPictures/dell.png" width="69px"/>
-                                break;
-                            case 2:
-                                <img src="~/manufacturerPictures/hp.png" width="69px" />
-                                break;
-                            case 3:
-                                <img src="~/manufacturerPictures/lenovo.png" width="69px" />
-                                break;
-                            case 4:
-                                <img src="~/manufacturerPictures/acer.png" width="69px" />
-                                break;
-                            case 5:
-                                <img src="~/manufacturerPictures/asus.png" width="69px" />
-                                break;
-                            case 6:
-                                <img src="~/manufacturerPictures/icons8-msi-48.png" width="69px" />
-                                break;
-                        }
-                    }
+                    <img src="@Html.DisplayFor(modelitem=> item.ManufacturerImage)" width="69px" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ManufacturerID">Edit</a> |
