@@ -38,7 +38,7 @@ namespace Website_Selling_Computer.Migrations
             //Enter data for the Product table
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "ProductName", "CategoryID", "Description", "Price", "ManufacturerID", "MainImage" },
+                columns: new[] { "ProductID", "ProductName", "CategoryID", "Description", "Price", "ManufacturerID", "MainImageUrl" },
                 values: new object[,]
                 {
                     {1, "Dell Vostro 3530 V5I3465W1 Gray", 1, "Dell Vostro 3530 V5I3001W1 Gray là dòng laptop sinh viên sở hữu thiết kế mỏng nhẹ với nhiều tính năng nổi bật giúp bạn nâng cao thành tích học tập, tăng thêm trải nghiệm với các tựa game mình yêu thích. Đặc biệt, với trọng lượng chưa đến 2kg bạn hoàn toàn có thể cất gọn trong balo mang đi đến bất kỳ đâu.", 14690000.0, 1, "https://product.hstatic.net/200000722513/product/ava_323374780a104f079d493a9001f17921_1024x1024.png" },

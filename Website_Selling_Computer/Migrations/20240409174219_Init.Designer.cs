@@ -12,8 +12,8 @@ using Website_Selling_Computer.DataAccess;
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    [Migration("20240408030041_insert")]
-    partial class insert
+    [Migration("20240409174219_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,7 +340,7 @@ namespace Website_Selling_Computer.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MainImage")
+                    b.Property<string>("MainImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturerID")
@@ -720,8 +720,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.Navigation("OrderDetails");
 
-                    b.Navigation("ProductDetail")
-                        .IsRequired();
+                    b.Navigation("ProductDetail");
 
                     b.Navigation("ProductImages");
                 });

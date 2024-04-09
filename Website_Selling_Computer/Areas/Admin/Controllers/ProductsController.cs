@@ -12,7 +12,7 @@ using Website_Selling_Computer.Repositories.Interfaces;
 namespace Website_Selling_Computer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =Role.Role_Admin)]
+    [Authorize(Roles = Role.Role_Admin)]
     public class ProductsController : Controller
     {
         private readonly IProduct _productRepository;
@@ -21,7 +21,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         private readonly IProductDetails _productDetailsRepository;
 
         private readonly WebsiteSellingComputerDbContext _websiteSellingComputerDbContext;
-        public ProductsController(IProduct productRepository,IProductCategory productCategoryRepository,
+        public ProductsController(IProduct productRepository, IProductCategory productCategoryRepository,
             WebsiteSellingComputerDbContext dbContext, IManufacturer manufacturerRepo, IProductDetails productDetailsRepository)
         {
             _productRepository = productRepository;
@@ -46,14 +46,15 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             {
                 await image.CopyToAsync(fileStream);
             }
-            return "/images/" + image.FileName ;
+            return "/images/" + image.FileName;
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var productDetails = await _productDetailsRepository.GetProductDetailsByIdAsync(id);
 
-            if(productDetails == null) 
+            if (productDetails == null)
             {
                 return NoContent();
             }
@@ -71,42 +72,78 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             return View();
         }
 
+        private bool IsValidData(Product product)
+        {
+            if (product.ProductName == null || product.ProductName.Length>100)
+            {
+                return false;
+            }
+            if (product.Description.Length>500)
+            {
+                return false;
+            }
+            if(product.Price == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images)
         {
-
-            if (ModelState.IsValid)
+            if (product == null)
             {
-                if(imageUrl != null)
+                return BadRequest("Product cannot be null");
+            }
+            if (IsValidData(product))
+            {
+                if (imageUrl != null)
                 {
-                    product.MainImage = await SaveImage(imageUrl);
+                    product.MainImageUrl = await SaveImage(imageUrl);
                 }
-                if(images != null)
+                if (images != null && images.Count > 0)
                 {
-                    product.ProductImages = new List<ProductImage>();
-                    foreach(var item in images)
+                    if (product.ProductImages == null)
+                    {
+                        product.ProductImages = new List<ProductImage>();
+                    }
+                    foreach (var item in images)
                     {
                         ProductImage imageCollection = new ProductImage
                         {
                             ProductID = product.ProductID,
-                            ImageUrl =await SaveImage(item),
+                            ImageUrl = await SaveImage(item),
                         };
                         product.ProductImages.Add(imageCollection);
                     }
                 }
-                await  _productRepository.AddAsync(product);
+                int productId = await _productRepository.AddAsync(product);
+                await _productDetailsRepository.AddAsync(new ProductDetail {
+                    ProductID=productId,
+                    BatteryLife="",
+                    CPU="",
+                    Display="",
+                    GraphicsCard="",
+                    OperatingSystem="",
+                    RAM="",
+                    Storage="",
+                    Warranty="",
+                    Weight=""
+                });
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                var category = await _productCategoryRepository.GetAllAsync();
+                var categories = await _productCategoryRepository.GetAllAsync();
                 var manufacturers = await _manufacturerRepository.GetAllAsync();
                 ViewBag.Manufacturers = new SelectList(manufacturers, "ManufacturerID", "ManufacturerName");
-                ViewBag.Categories = new SelectList(category, "CategoryID", "Description");    
+                ViewBag.Categories = new SelectList(categories, "CategoryID", "Description");
                 return View(product);
             }
-            
         }
+
+
 
         // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -140,18 +177,18 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
 
                 if (imageUrl == null)
                 {
-                    product.MainImage = existingProduct.MainImage;
+                    product.MainImageUrl = existingProduct.MainImageUrl;
                 }
                 else
                 {
                     // Lưu hình ảnh mới
-                    product.MainImage = await SaveImage(imageUrl);
+                    product.MainImageUrl = await SaveImage(imageUrl);
                 }
                 existingProduct.ProductName= product.ProductName;
                 existingProduct.Price = product.Price;
                 existingProduct.Description = product.Description;
                 existingProduct.CategoryID = product.CategoryID;
-                existingProduct.MainImage = product.MainImage;
+                existingProduct.MainImageUrl = product.MainImageUrl;
                 existingProduct.ManufacturerID = product.ManufacturerID;
 
                 await _productRepository.UpdateAsync(existingProduct);

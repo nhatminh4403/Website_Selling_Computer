@@ -25,10 +25,11 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
             // lấy thông tin kèm theo category
             return await _context.Products.Include(p => p.ProductCategory).Include(p => p.Manufacturer).FirstOrDefaultAsync(p => p.ProductID == id);
         }
-        public async Task AddAsync(Product product)
+        public async Task<int> AddAsync(Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
+            return product.ProductID;
         }
         public async Task UpdateAsync(Product product)
         {

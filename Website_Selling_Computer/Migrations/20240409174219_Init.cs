@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Website_Selling_Computer.Migrations
 {
     /// <inheritdoc />
-    public partial class index : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -239,7 +239,7 @@ namespace Website_Selling_Computer.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ManufacturerID = table.Column<int>(type: "int", nullable: false),
-                    MainImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    MainImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

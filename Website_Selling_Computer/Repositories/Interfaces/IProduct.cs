@@ -5,8 +5,9 @@ namespace Website_Selling_Computer.Repositories.Interfaces
     {
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);
-        Task AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(int id);
+
+        Task<int> AddAsync(Product product);
     }
 }
