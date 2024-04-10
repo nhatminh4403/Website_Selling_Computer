@@ -15,13 +15,15 @@ namespace Website_Selling_Computer.Controllers
     {
         private readonly WebsiteSellingComputerDbContext _context;
         private readonly IProduct _productRepo;
+        private readonly IOrder _orderRepo;
         private readonly UserManager<User> _userManager;
         public CartController(WebsiteSellingComputerDbContext context,
-           IProduct productRepo, UserManager<User> userManager)
+           IProduct productRepo, UserManager<User> userManager, IOrder orderRepo)
         {
             _context = context;
             _productRepo = productRepo;
             _userManager = userManager;
+            _orderRepo = orderRepo;
         }
         public IActionResult NotFound(string errorMessage)
         {
@@ -52,10 +54,10 @@ namespace Website_Selling_Computer.Controllers
                 Quantity = i.Quantity,
                 Price = i.Price * i.Quantity
             }).ToList();
-            foreach(var item in order.OrderDetails)
+            foreach (var item in order.OrderDetails)
             {
-                var productInventoryQuantity = await _context.Inventory.FirstOrDefaultAsync(i=> i.ProductID == item.ProductID);
-                if(productInventoryQuantity != null)
+                var productInventoryQuantity = await _context.Inventory.FirstOrDefaultAsync(i => i.ProductID == item.ProductID);
+                if (productInventoryQuantity != null)
                 {
                     productInventoryQuantity.QuantityInStock -= item.Quantity;
                     _context.Inventory.Update(productInventoryQuantity);
@@ -66,6 +68,7 @@ namespace Website_Selling_Computer.Controllers
             HttpContext.Session.Remove("Cart");
             return View("OrderCompleted", order.OrderID);
         }
+
         public IActionResult OrderCompleted()
         {
             return View();
@@ -118,6 +121,31 @@ namespace Website_Selling_Computer.Controllers
                 HttpContext.Session.SetObjectAsJson("Cart", cart);
             }
             return RedirectToAction("Index");
+        }
+        public IActionResult Increase(int productId)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart") ?? new Cart();
+            cart.IncreaseQuantity(productId);
+            HttpContext.Session.SetObjectAsJson("Cart", cart);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Decrease(int productId)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
+            cart.DecreaseQuantity(productId);
+            HttpContext.Session.SetObjectAsJson("Cart", cart);
+            return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = Role.Role_Customer)]
+        public async Task<IActionResult> ViewingOrderHistory()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if(user == null)
+            {
+                return NotFound();  
+            }
+            var orders = await _context.Orders.Include(i=>i.OrderDetails).Where(o=>o.UserID == user.Id).ToListAsync();
+            return View(orders);
         }
     }
 }

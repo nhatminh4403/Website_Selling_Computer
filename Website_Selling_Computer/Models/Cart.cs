@@ -32,5 +32,21 @@ namespace Website_Selling_Computer.Models
 		{
 			Items.RemoveAll(i => i.ProductID == productId);
 		}
-	}
+        public void IncreaseQuantity(int productId)
+        {
+            var item = Items.FirstOrDefault(i => i.ProductID == productId);
+            if (item != null)
+            {
+                item.Quantity++;
+            }
+        }
+        public void DecreaseQuantity(int productId)
+        {
+            var item = Items.FirstOrDefault(i => i.ProductID == productId);
+            if (item != null && item.Quantity > 1)
+            {
+                item.Quantity--;
+            }
+        }
+    }
 }

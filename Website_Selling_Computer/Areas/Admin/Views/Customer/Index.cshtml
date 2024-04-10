@@ -1,0 +1,36 @@
+﻿@model List<Website_Selling_Computer.Models.User>
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Index";Layout = "_Layout";
+}
+
+<h1>User Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <!-- Add button to assign roles to user -->
+                    <a asp-controller="Admin" asp-action="AssignRole" asp-route-userId="@user.Id">Assign Role</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,17 +18,19 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         private readonly IProduct _productRepository;
         private readonly IProductCategory _productCategoryRepository;
         private readonly IManufacturer _manufacturerRepository;
+        private readonly I_Inventory _inventoryRepository;
         private readonly IProductDetails _productDetailsRepository;
 
         private readonly WebsiteSellingComputerDbContext _websiteSellingComputerDbContext;
         public ProductsController(IProduct productRepository, IProductCategory productCategoryRepository,
-            WebsiteSellingComputerDbContext dbContext, IManufacturer manufacturerRepo, IProductDetails productDetailsRepository)
+            WebsiteSellingComputerDbContext dbContext, IManufacturer manufacturerRepo, IProductDetails productDetailsRepository, I_Inventory inventoryRepository)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
             _manufacturerRepository = manufacturerRepo;
             _websiteSellingComputerDbContext = dbContext;
             _productDetailsRepository = productDetailsRepository;
+            _inventoryRepository = inventoryRepository;
         }
 
         // GET: Admin/Products
@@ -131,6 +133,14 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
                     Warranty="",
                     Weight=""
                 });
+
+                await _inventoryRepository.AddAsync(new Inventory
+                {
+                    ProductID=productId,
+                    QuantityInStock = 0,
+                    ReorderLevel = 20
+                });
+                
                 return RedirectToAction(nameof(Index));
             }
             else
