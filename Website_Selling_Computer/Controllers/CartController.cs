@@ -52,6 +52,15 @@ namespace Website_Selling_Computer.Controllers
                 Quantity = i.Quantity,
                 Price = i.Price * i.Quantity
             }).ToList();
+            foreach(var item in order.OrderDetails)
+            {
+                var productInventoryQuantity = await _context.Inventory.FirstOrDefaultAsync(i=> i.ProductID == item.ProductID);
+                if(productInventoryQuantity != null)
+                {
+                    productInventoryQuantity.QuantityInStock -= item.Quantity;
+                    _context.Inventory.Update(productInventoryQuantity);
+                }
+            }
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             HttpContext.Session.Remove("Cart");

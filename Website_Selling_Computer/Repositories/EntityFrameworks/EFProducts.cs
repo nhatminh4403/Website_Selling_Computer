@@ -17,6 +17,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
             return await _context.Products
             .Include(p => p.ProductCategory)
             .Include(p=> p.Manufacturer)
+            .Include(p=>p.Inventories)
             .ToListAsync();
         }
         public async Task<Product> GetByIdAsync(int id)
