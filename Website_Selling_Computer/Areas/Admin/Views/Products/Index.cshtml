@@ -27,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MainImage)
+                @Html.DisplayNameFor(model => model.MainImageUrl)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductCategory)
@@ -54,7 +54,7 @@
                     <span>@item.Price.ToString("#,##0") Vnđ</span>
             </td>
             <td>
-                    <img src="@Html.DisplayFor(modelItem => item.MainImage)" width="250px">
+                    <img src="@Html.DisplayFor(modelItem => item.MainImageUrl)" width="250px">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductCategory.Description)

@@ -337,7 +337,7 @@ namespace Website_Selling_Computer.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("MainImage")
+                    b.Property<string>("MainImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManufacturerID")
@@ -717,8 +717,7 @@ namespace Website_Selling_Computer.Migrations
 
                     b.Navigation("OrderDetails");
 
-                    b.Navigation("ProductDetail")
-                        .IsRequired();
+                    b.Navigation("ProductDetail");
 
                     b.Navigation("ProductImages");
                 });

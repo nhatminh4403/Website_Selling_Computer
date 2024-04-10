@@ -13,8 +13,6 @@ namespace Website_Selling_Computer.Models
         [StringLength(100)]
         public string ProductName { get; set; }
 
-        [Required]
-        [ForeignKey("ProductCategory")]
         public int CategoryID { get; set; }
 
         [StringLength(500)]
@@ -23,11 +21,9 @@ namespace Website_Selling_Computer.Models
         [Required]
         public decimal Price { get; set; }
 
-        [Required]
-        [ForeignKey("Manufacturer")]
         public int ManufacturerID { get; set; }
 
-        public string? MainImage { get; set; }
+        public string? MainImageUrl { get; set; }
 
         public virtual ICollection<ProductImage> ProductImages { get; set; }
 
@@ -35,9 +31,13 @@ namespace Website_Selling_Computer.Models
         public virtual ICollection<Inventory> Inventories { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<CartDetail> CartDetails { get; set; }
-        public virtual ProductDetail ProductDetail { get; set; }
+
+        public virtual ProductDetail? ProductDetail { get; set; }
+
+        [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { get; set; }
+
+        [ForeignKey("ManufacturerID")]
         public virtual Manufacturer Manufacturer { get; set; }
     }
-
 }

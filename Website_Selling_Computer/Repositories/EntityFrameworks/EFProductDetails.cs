@@ -19,5 +19,25 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
             .Include(pd => pd.Product)
             .FirstOrDefault(pd => pd.ProductID ==id);
         }
+
+        public async Task AddAsync(ProductDetail productDetail)
+        {
+            _context.ProductDetails.Add(productDetail);
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateAsync(ProductDetail productDetail)
+        {
+            _context.ProductDetails.Update(productDetail);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int productId)
+        {
+            var productDetail = await _context.ProductDetails.FindAsync(productId);
+            if(productDetail!= null)
+            {
+                _context.ProductDetails.Remove(productDetail);
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }
