@@ -17,7 +17,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<ProductCategory> GetByIdAsync(int id)
         {
-            return await _context.ProductCategories.SingleAsync(x => x.CategoryID == id);
+            return await _context.ProductCategories.SingleOrDefaultAsync(x => x.CategoryID == id);
         }
         public async Task AddAsync(ProductCategory productCategory)
         {

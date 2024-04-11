@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
-
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-
 using Website_Selling_Computer.Models;
 using Website_Selling_Computer.Repositories.Interfaces;
 
@@ -12,7 +8,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
     public class EFOrder : IOrder
     {
         private readonly WebsiteSellingComputerDbContext _context;
-        public EFOrder(WebsiteSellingComputerDbContext context )
+        public EFOrder(WebsiteSellingComputerDbContext context)
         {
             _context = context;
         }
@@ -26,7 +22,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         public async Task<Order> GetByIdAsync(int id)
         {
 
-            return await _context.Orders.Include(p => p.User).FirstAsync(p => p.OrderID == id);
+            return await _context.Orders.Include(p => p.User).FirstOrDefaultAsync(p => p.OrderID == id);
         }
         public async Task AddAsync(Order order)
         {
