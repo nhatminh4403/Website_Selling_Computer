@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Website_Selling_Computer.DataAccess;
 using Website_Selling_Computer.Models;
 using Website_Selling_Computer.Repositories.Interfaces;
@@ -76,15 +72,15 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
 
         private bool IsValidData(Product product)
         {
-            if (product.ProductName == null || product.ProductName.Length>100)
+            if (product.ProductName == null || product.ProductName.Length > 100)
             {
                 return false;
             }
-            if (product.Description.Length>500)
+            if (product.Description != null && product.Description.Length > 500)
             {
                 return false;
             }
-            if(product.Price == null)
+            if (product.Price == null)
             {
                 return false;
             }
@@ -121,26 +117,27 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
                     }
                 }
                 int productId = await _productRepository.AddAsync(product);
-                await _productDetailsRepository.AddAsync(new ProductDetail {
-                    ProductID=productId,
-                    BatteryLife="",
-                    CPU="",
-                    Display="",
-                    GraphicsCard="",
-                    OperatingSystem="",
-                    RAM="",
-                    Storage="",
-                    Warranty="",
-                    Weight=""
+                await _productDetailsRepository.AddAsync(new ProductDetail
+                {
+                    ProductID = productId,
+                    BatteryLife = "",
+                    CPU = "",
+                    Display = "",
+                    GraphicsCard = "",
+                    OperatingSystem = "",
+                    RAM = "",
+                    Storage = "",
+                    Warranty = "",
+                    Weight = ""
                 });
 
                 await _inventoryRepository.AddAsync(new Inventory
                 {
-                    ProductID=productId,
+                    ProductID = productId,
                     QuantityInStock = 0,
                     ReorderLevel = 20
                 });
-                
+
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -153,7 +150,34 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             }
         }
 
+        public async Task<IActionResult> SearchByName(string name)
+        {
+            var list= await _productRepository.FindByNameAsync(name);
+            if (list.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", list);
+        }
 
+        public async Task<IActionResult> SearchByCategory(int id)
+        {
+            var list = await _productRepository.FindByCategoryAsync(id);
+            if (list.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", list);
+        }
+        public async Task<IActionResult> SearchByManufacturer(int id)
+        {
+            var list = await _productRepository.FindByManufacturerAsync(id);
+            if (list.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", list);
+        }
 
         // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -194,7 +218,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
                     // Lưu hình ảnh mới
                     product.MainImageUrl = await SaveImage(imageUrl);
                 }
-                existingProduct.ProductName= product.ProductName;
+                existingProduct.ProductName = product.ProductName;
                 existingProduct.Price = product.Price;
                 existingProduct.Description = product.Description;
                 existingProduct.CategoryID = product.CategoryID;

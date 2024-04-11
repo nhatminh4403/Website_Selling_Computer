@@ -1,7 +1,7 @@
-﻿using Website_Selling_Computer.Models;
-using Website_Selling_Computer.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
-using Microsoft.EntityFrameworkCore;
+using Website_Selling_Computer.Models;
+using Website_Selling_Computer.Repositories.Interfaces;
 namespace Website_Selling_Computer.Repositories.EntityFrameworks
 {
     public class EFProductCategory : IProductCategory
@@ -17,7 +17,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<ProductCategory> GetByIdAsync(int id)
         {
-            return await _context.ProductCategories.SingleOrDefaultAsync(x => x.CategoryID == id);
+            return await _context.ProductCategories.SingleAsync(x => x.CategoryID == id);
         }
         public async Task AddAsync(ProductCategory productCategory)
         {
@@ -26,14 +26,18 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task UpdateAsync(ProductCategory productCategory)
         {
-            _context.ProductCategories.Update( productCategory);
+            _context.ProductCategories.Update(productCategory);
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
         {
-            var category = await _context.ProductCategories .FindAsync(id);
-            _context.ProductCategories.Remove(category);
-            await _context.SaveChangesAsync();
+            var category = await _context.ProductCategories.FindAsync(id);
+            if (category != null)
+            {
+                _context.ProductCategories.Remove(category);
+                await _context.SaveChangesAsync();
+            }
+            return;
         }
     }
 }

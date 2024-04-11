@@ -9,5 +9,6 @@ namespace Website_Selling_Computer.Repositories.Interfaces
         Task AddAsync(Manufacturer manufacturer);
         Task UpdateAsync(Manufacturer  manufacturer);
         Task DeleteAsync(int id);
+        Task<ICollection<Manufacturer>> FindByNameAsync(string name);
     }
 }

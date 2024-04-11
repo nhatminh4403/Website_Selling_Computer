@@ -11,5 +11,8 @@ namespace Website_Selling_Computer.Repositories.Interfaces
         Task AddAsync(Inventory inventory);
         Task UpdateAsync(Inventory inventory);
         Task DeleteAsync(int id);
+        Task<ICollection<Product>> FindByNameAsync(string name);
+        Task<ICollection<Product>> FindByCategoryAsync(int CategoryID);
+        Task<ICollection<Product>> FindByManufacturerAsync(int ManufacturerID);
     }
 }

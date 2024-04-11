@@ -1,7 +1,7 @@
-﻿using Website_Selling_Computer.Models;
-using Website_Selling_Computer.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
-using Microsoft.EntityFrameworkCore;
+using Website_Selling_Computer.Models;
+using Website_Selling_Computer.Repositories.Interfaces;
 namespace Website_Selling_Computer.Repositories.EntityFrameworks
 {
     public class EFManufacturer : IManufacturer
@@ -19,7 +19,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<Manufacturer> GetByIdAsync(int id)
         {
-            return await _context.Manufacturers.FirstOrDefaultAsync(p => p.ManufacturerID == id);
+            return await _context.Manufacturers.FirstAsync(p => p.ManufacturerID == id);
         }
         public async Task AddAsync(Manufacturer manufacturer)
         {
@@ -34,9 +34,18 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         public async Task DeleteAsync(int id)
         {
             var manufacturer = await _context.Manufacturers.FindAsync(id);
-            _context.Manufacturers.Remove(manufacturer);
-            await _context.SaveChangesAsync();
+            if (manufacturer != null)
+            {
+                _context.Manufacturers.Remove(manufacturer);
+                await _context.SaveChangesAsync();
+            }
+            return;
         }
 
+        public async Task<ICollection<Manufacturer>> FindByNameAsync(string name)
+        {
+            List<Manufacturer> manufacturers = await _context.Manufacturers.Where(p => p.ManufacturerName.Contains(name)).ToListAsync();
+            return manufacturers;
+        }
     }
 }

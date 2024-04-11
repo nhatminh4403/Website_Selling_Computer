@@ -15,7 +15,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<OrderDetail> GetOrderDetailsByIdAsync(int id)
         {
-            return await _context.OrderDetails.Include(p => p.Order).Include(p=>p.Product).FirstOrDefaultAsync(p=>p.OrderID ==id);
+            return await _context.OrderDetails.Include(p => p.Order).Include(p=>p.Product).FirstAsync(p=>p.OrderID ==id);
         }
 
     }
