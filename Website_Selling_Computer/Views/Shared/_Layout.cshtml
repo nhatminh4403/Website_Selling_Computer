@@ -41,7 +41,7 @@
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="OrderManagement" asp-action="Index">Quản lý đơn hàng</a>
                             </li>
                             }
-                            else if(User.IsInRole("Customer"))
+                            else 
                             {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Sản phẩm</a>
@@ -50,18 +50,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetCategoriesView">Danh mục</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ViewingOrderHistory">Lịch sử đặt hàng</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="ViewingOrderHistory">Lịch sử đặt hàng</a>
                             </li>
                         }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Sản phẩm</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetCategoriesView">Danh mục</a>
-                            </li>
-                        }
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

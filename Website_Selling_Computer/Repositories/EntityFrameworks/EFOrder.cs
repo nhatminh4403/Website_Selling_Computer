@@ -2,12 +2,13 @@
 using Website_Selling_Computer.Repositories.Interfaces;
 using Website_Selling_Computer.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 namespace Website_Selling_Computer.Repositories.EntityFrameworks
 {
     public class EFOrder : IOrder
     {
         private readonly WebsiteSellingComputerDbContext _context;
-        public EFOrder(WebsiteSellingComputerDbContext context)
+        public EFOrder(WebsiteSellingComputerDbContext context )
         {
             _context = context;
         }
@@ -39,5 +40,6 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
         }
+        
     }
 }

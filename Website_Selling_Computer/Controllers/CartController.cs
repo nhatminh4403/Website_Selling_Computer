@@ -69,6 +69,7 @@ namespace Website_Selling_Computer.Controllers
             return View("OrderCompleted", order.OrderID);
         }
 
+
         public IActionResult OrderCompleted()
         {
             return View();
@@ -136,13 +137,14 @@ namespace Website_Selling_Computer.Controllers
             HttpContext.Session.SetObjectAsJson("Cart", cart);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize]
         [Authorize(Roles = Role.Role_Customer)]
         public async Task<IActionResult> ViewingOrderHistory()
         {
             var user = await _userManager.GetUserAsync(User);
             if(user == null)
             {
-                return NotFound();  
+                return Forbid();  
             }
             var orders = await _context.Orders.Include(i=>i.OrderDetails).Where(o=>o.UserID == user.Id).ToListAsync();
             return View(orders);

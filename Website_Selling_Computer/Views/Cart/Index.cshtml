@@ -29,14 +29,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center">
                         <div style="width: 300px;">
-                            <div class="d-flex align-items-center">
-                              <form asp-controller="Cart" asp-action="Increase" method="post">
-                                    <input type="hidden" name="productId" value="@item.ProductID" />
-                                    <button type="submit" class="btn btn-sm btn-primary">+</button>
-                            </form>
-                                <div class="mx-2">
-                                    <h5 class="fw-normal mb-0">@item.Quantity</h5>
-                                </div>
+                            <div class="d-flex align-items-center"> 
                                 @if (item.Quantity > 1)
                                 {
                                     <form asp-controller="Cart" asp-action="Decrease" method="post">
@@ -49,7 +42,14 @@
                                     <form asp-action="RemoveFromCart" asp-route-productId="@item.ProductID" method="post">
                                         <button type="submit" class="btn btn-sm btn-secondary">-</button>
                                     </form>
-                            }
+                                }
+                                <div class="mx-2">
+                                    <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                </div>
+                                <form asp-controller="Cart" asp-action="Increase" method="post">
+                                    <input type="hidden" name="productId" value="@item.ProductID" />
+                                    <button type="submit" class="btn btn-sm btn-primary">+</button>
+                                </form>
                             </div>
                         </div>
                         <div style="width: 80px;">

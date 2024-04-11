@@ -1,9 +1,14 @@
-﻿@model Order
+﻿@model Website_Selling_Computer.Models.Order
+
 @{
     ViewData["Title"] = "Checkout";
 }
 
 <h1>Checkout</h1>
+
+
+<!-- Display the items in the order -->
+
 
 <form asp-action="Checkout" method="post">
     <div class="form-group">
@@ -14,5 +19,6 @@
         <label asp-for="Notes">Ghi chú</label>
         <textarea asp-for="Notes" class="form-control"></textarea>
     </div>*@
-    <button type="submit" class="btn btn-primary">Đặt hàng</button>
+
+    <a asp-action="ConfirmCheckout" class="btn btn-edit">Xác nhận đơn hàng</a>
 </form>

@@ -21,6 +21,9 @@ body {
   margin-bottom: 60px;
 }
 
+.btn-equal-width {
+    width: 100%; /* Set all buttons to occupy the full width of their container */
+}
 
 
 .card-img-top {

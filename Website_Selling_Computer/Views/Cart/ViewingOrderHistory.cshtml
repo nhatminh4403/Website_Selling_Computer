@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<Website_Selling_Computer.Models.Order>
+@using Website_Selling_Computer.Models
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "ViewingOrderHistory";
+    DateTime now = DateTime.Today;
+}
+<h1>ViewingOrderHistory: </h1>
+@foreach(var item in Model)
+{
+    <p>Tên: @item.User.LastName @item.User.FirstName </p>
+    <p>Email: @item.User.Email</p>
 }
 
-<h1>ViewingOrderHistory</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -21,31 +26,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.ShippingAddress)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>@item.OrderID</td>
+                <td>@item.OrderDate</td>
+                <td>@item.TotalAmount</td>
+                <td>@item.ShippingAddress</td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> 
+                    @if ((now - item.OrderDate.Date).Days <= 10)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                    }
             </td>
         </tr>
 }
