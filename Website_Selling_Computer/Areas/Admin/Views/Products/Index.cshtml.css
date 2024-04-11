@@ -1,0 +1,32 @@
+﻿body {
+}
+
+#inputWrapper {
+    height: 100%;
+    position: relative;
+}
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+input {
+    background-color: var(--color-realbox-background);
+    border: none;
+    border-radius: var(--ntp-realbox-border-radius);
+    color: var(--color-realbox-foreground);
+    font-family: inherit;
+    font-size: inherit;
+    height: 100%;
+    outline: 0;
+    padding-inline-end: calc(var(--ntp-realbox-voice-icon-offset) + var(--ntp-realbox-icon-width) + var(--ntp-realbox-inner-icon-margin));
+    padding-inline-start: 52px;
+    position: relative;
+    width: 100%;
+}
+cr-realbox-icon {
+    height: 100%;
+    left: 12px;
+    position: absolute;
+    top: 0;
+}

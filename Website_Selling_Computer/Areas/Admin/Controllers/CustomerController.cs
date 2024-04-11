@@ -14,11 +14,12 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         {
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IList<User> customer = _userManager.GetUsersInRoleAsync("Customer").Result;
+            IList<User> customer = await _userManager.GetUsersInRoleAsync("Customer");
             return View(customer);
         }
+
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)

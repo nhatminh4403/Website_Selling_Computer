@@ -1,8 +1,12 @@
-﻿using Website_Selling_Computer.Models;
-using Website_Selling_Computer.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
+
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+
+using Website_Selling_Computer.Models;
+using Website_Selling_Computer.Repositories.Interfaces;
+
 namespace Website_Selling_Computer.Repositories.EntityFrameworks
 {
     public class EFOrder : IOrder
@@ -14,15 +18,15 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<IEnumerable<Order>> GetAllAsync()
         {
-            
+
             return await _context.Orders
-            .Include(p => p.User) 
+            .Include(p => p.User)
             .ToListAsync();
         }
         public async Task<Order> GetByIdAsync(int id)
         {
-            
-            return await _context.Orders.Include(p => p.User).FirstOrDefaultAsync(p => p.OrderID == id);
+
+            return await _context.Orders.Include(p => p.User).FirstAsync(p => p.OrderID == id);
         }
         public async Task AddAsync(Order order)
         {
@@ -37,8 +41,12 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         public async Task DeleteAsync(int id)
         {
             var order = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
+            }
+            return;
         }
         
     }

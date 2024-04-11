@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Website_Selling_Computer.DataAccess;
 using Website_Selling_Computer.Models;
+using Website_Selling_Computer.Repositories.Interfaces;
 
 namespace Website_Selling_Computer.Areas.Admin.Controllers
 {
@@ -12,9 +13,10 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
     public class InventoryController : Controller
     {
         private readonly WebsiteSellingComputerDbContext _context;
-
-        public InventoryController(WebsiteSellingComputerDbContext context)
+        private readonly I_Inventory _inventoryRepository;
+        public InventoryController(WebsiteSellingComputerDbContext context, I_Inventory inventoryRepository)
         {
+            _inventoryRepository = inventoryRepository;
             _context = context;
         }
 
@@ -117,21 +119,13 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         }
 
         // GET: Inventory/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var inventory = await _context.Inventory
-                .Include(i => i.Product)
-                .FirstOrDefaultAsync(m => m.InventoryID == id);
+            var inventory = await _inventoryRepository.GetByIdAsync(id);
             if (inventory == null)
             {
                 return NotFound();
             }
-
             return View(inventory);
         }
 
@@ -140,9 +134,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var inventory = await _context.Inventory.FindAsync(id);
-            _context.Inventory.Remove(inventory);
-            await _context.SaveChangesAsync();
+            await _inventoryRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

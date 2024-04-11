@@ -5,16 +5,18 @@
 @using Microsoft.AspNetCore.Identity
 @using Website_Selling_Computer.Models;
 @using Website_Selling_Computer.DataAccess;
+
 @{
     ViewData["Title"] = "Index"; Layout = "_Layout";
 }
-
 <h1>Danh sách sản phẩm</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
+<form id="searchForm" method="get" asp-controller="Products" asp-action="SearchByName" asp-route-data="name">
+    <input type="text" id="searchBox" name="name" placeholder="Nhập tên sản phẩm...">
+</form>
 <table class="table">
     <thead>
         <tr>
