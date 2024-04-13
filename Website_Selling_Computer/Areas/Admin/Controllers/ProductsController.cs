@@ -32,8 +32,15 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            var product = await _productRepository.GetAllAsync();
-            return View(product);
+            var products = await _productRepository.GetAllAsync();
+            foreach(var product in products)
+            {
+                if(product.Manufacturer != null)
+                {
+                    var manuImage = product.Manufacturer.ManufacturerImage;
+                }
+            }
+            return View(products);
         }
 
         private async Task<string?> SaveImage(IFormFile image)

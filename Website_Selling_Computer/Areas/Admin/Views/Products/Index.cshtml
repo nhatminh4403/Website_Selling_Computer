@@ -65,7 +65,10 @@
                 @Html.DisplayFor(modelItem => item.ProductCategory.Description)
             </td>
             <td>
-                    
+                    @if(item.ManufacturerID == item.Manufacturer.ManufacturerID)
+                    {
+                        <img src="@item.Manufacturer.ManufacturerImage" alt="ManufacturerImage" width="69px"/>
+                    }
             </td>
             <td>
                     @foreach(var quantity in item.Inventories)
