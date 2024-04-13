@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Website_Selling_Computer.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -266,14 +273,17 @@
                                                 <div class="thing-name">Xin chào, vui lòng đăng nhập</div>
                                             </div>
                                         </div>
-                                        <div class="actions">
+
+                                        @* <div class="actions">
                                             <button class="js-account" data-box="acc-login-box" onclick="window.location.href='/Identity/Account/Login'">
-                                                ĐĂNG NHẬP
-                                            </button>
+                                                ĐĂNG NHẬP *@
+                                                 <partial name="_LoginPartial" />
+                                        
+                                     @*        </button>
                                             <button class="js-account" data-box="acc-register-box" onclick="window.location.href='/Identity/Account/Register'">
                                                 ĐĂNG KÝ
                                             </button>
-                                        </div>
+                                        </div> *@
                                     </div>
                                 </div>
                             </div>

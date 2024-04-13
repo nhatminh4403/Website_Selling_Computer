@@ -17,6 +17,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
 
             return await _context.Orders
             .Include(p => p.User)
+            .Include(p=>p.Cart)
             .ToListAsync();
         }
         public async Task<Order> GetByIdAsync(int id)

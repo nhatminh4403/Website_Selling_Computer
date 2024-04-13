@@ -16,7 +16,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         public async Task<ProductDetail> GetProductDetailsByIdAsync(int id)
         {
             return await _context.ProductDetails
-            .Include(pd => pd.Product)
+            .Include(pd => pd.Product).Include(pd=>pd.Product.ProductImages)
             .FirstAsync(pd => pd.ProductID ==id);
         }
 

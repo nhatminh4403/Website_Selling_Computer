@@ -24,7 +24,22 @@ body {
 .btn-equal-width {
     width: 100%; /* Set all buttons to occupy the full width of their container */
 }
+.image-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
 
+.scroll-wrapper {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+    .scroll-wrapper img {
+        width: auto;
+        height: 200px; /* Adjust the height as needed */
+        margin-right: 10px; /* Adjust the margin between images as needed */
+    }
 
 .card-img-top {
     width: 300px;

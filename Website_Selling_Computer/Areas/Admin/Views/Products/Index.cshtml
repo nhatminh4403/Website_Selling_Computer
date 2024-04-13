@@ -3,8 +3,9 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @using Microsoft.AspNetCore.Identity
-@using Website_Selling_Computer.Models;
-@using Website_Selling_Computer.DataAccess;
+@using Website_Selling_Computer.Models
+@using Website_Selling_Computer.DataAccess
+@using Microsoft.AspNetCore.Mvc.Rendering
 
 @{
     ViewData["Title"] = "Index"; Layout = "_Layout";
@@ -42,6 +43,7 @@
             <th>
                 Quantity in stock
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -57,13 +59,16 @@
                     <span>@item.Price.ToString("#,##0") Vnđ</span>
             </td>
             <td>
-                    <img src="@Html.DisplayFor(modelItem => item.MainImageUrl)" width="250px">
+                    <img src="@item.MainImageUrl" width="250px">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductCategory.Description)
             </td>
             <td>
-                    <img src="@item.Manufacturer.ManufacturerImage" width="69px" />
+                    @if(item.ManufacturerID == item.Manufacturer.ManufacturerID)
+                    {
+                        <img src="@item.Manufacturer.ManufacturerImage" alt="ManufacturerImage" width="69px"/>
+                    }
             </td>
             <td>
                     @foreach(var quantity in item.Inventories)
