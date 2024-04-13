@@ -20,10 +20,10 @@
                 <div class="row-header">
                     <div class="coll-header main-header--left header-action">
                         <!--danh muc-->
-                        <div class="header-action-item main-header--cate">
+                        <div class="header-action-item main-header--category">
                             <div class="header-action_text">
-                                <a class="header-action__link" href="#" id="site-account-handle" aria-label="Danh mục"
-                                   rel="nofollow" title="Danh mục">
+                                <a class="header-action__link" href="#" id="site-menu-handle" aria-label="Danh mục"
+                                   title="Danh mục">
                                     <span class="box-icon">
                                         <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -44,35 +44,41 @@
                                     </svg>
                                 </span>
                             </div>
-                            <div class="header-action_dropdown cate-dropdown">
-                                <div class="header-cate-dropdown-cover">
+
+                            <div class="header-action_dropdown category-dropdown">
+                                <div class="header-dropdown-cover">
                                     <div class="greeting block--1">
-                                        <div class="thing">
-                                            <div class="d-flex flex-column">
-                                                <div class="thing-name">
-                                                    Bạn muốn xem gì?
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="actions">
                                             <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 6 })'">
                                                 MSI
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 5})'">
                                                 ASUS
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 2 })'">
                                                 HP
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 3 })'">
                                                 LENOVO
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 4 })'">
                                                 ACER
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 1 })'">
                                                 DELL
                                             </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 1 })'">
+                                                Laptop Văn phòng
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 2 })'">
+                                                Laptop Gaming
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 3 })'">
+                                                Laptop đồ họa
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 4 })'">
+                                                Laptop mỏng nhẹ
+                                            </button> 
                                         </div>
                                     </div>
                                 </div>

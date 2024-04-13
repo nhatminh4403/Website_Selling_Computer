@@ -8310,3 +8310,132 @@ svg.icon {
     /* Hover effect for buttons */
     color: gray;
 }
+
+/*danh muc*/
+.main-header .main-header--top .header-action-item.main-header--category .header-action_dropdown .box-triangle {
+    right: 58px;
+}
+
+@media (min-width: 1170px) {
+    .main-header .main-header--top .header-action-item.main-header--category .header-action_text .header-action__link {
+        background: #135204;
+        border-radius: 4px;
+    }
+
+    .main-header .main-header--top .header-action-item.main-header--category:hover .header-action_text .box-triangle,
+    .main-header .main-header--top .header-action-item.main-header--cart.show-addcart .header-action_text .box-triangle {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .main-header .main-header--top .header-action-item.main-header--category:hover .header-action_dropdown,
+    .main-header .main-header--top .header-action-item.main-header--cart.show-addcart .header-action_dropdown {
+        visibility: visible;
+        opacity: 1;
+        left: 150px;
+    }
+}
+
+.main-header--category .header-action > a span.tx-header.logged {
+    height: 18px;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.main-header--category .category-dropdown a {
+    color: var(--textcolor);
+}
+
+    .main-header--category .category-dropdown a:hover {
+        text-decoration: underline;
+    }
+
+.main-header--category .category-dropdown .thing {
+    display: flex;
+    align-items: center;
+}
+
+    .main-header--category .category-dropdown .thing svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .main-header--category .category-dropdown .thing .thing-img {
+        position: relative;
+        overflow: hidden;
+        margin-right: 12px;
+        width: 24px;
+    }
+
+    .main-header--category .category-dropdown .thing > div:not(.thing-img) {
+        width: 100%;
+    }
+
+    .main-header--category .category-dropdown .thing .thing-name {
+        line-height: 1.2;
+        font-size: 14px;
+    }
+
+    .main-header--category .category-dropdown .thing .thing-desc {
+        font-size: 12px;
+        line-height: 1.25;
+        margin-top: 3px;
+    }
+
+.main-header--category .category-dropdown .block ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+    .main-header--category .category-dropdown .block ul li {
+        padding: 10px 16px;
+    }
+
+.main-header--category .category-dropdown .block + .block {
+    border-top: 1px solid rgba(0, 0, 0, 0.063);
+}
+
+.main-header--category .category-dropdown .greeting {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.063);
+}
+
+    .main-header--category .category-dropdown .greeting .thing {
+        margin-bottom: 16px;
+    }
+
+    .main-header--category .category-dropdown .greeting .thing-name {
+        font-weight: 600;
+    }
+
+    .main-header--category .category-dropdown .greeting .actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Thêm dòng này */
+    }
+
+        .main-header--category .category-dropdown .greeting .actions button {
+            background-color: transparent;
+            color: #111111;
+            transition: color 0.2s ease 0s, border-color 0.2s ease 0s;
+            font-size: 12px;
+            padding: 3px 10px;
+            min-height: 32px;
+            font-weight: 500;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            border-color: #111111;
+            text-align: center;
+            text-decoration: none;
+            outline: 0px;
+            border-radius: 4px;
+            appearance: none;
+            display: flex;
+            width: 100%;
+            flex-basis: calc(33.33% - 10px); /* Chiếm một phần ba không gian, trừ đi một chút để tạo khoảng cách giữa các nút */
+            margin: 5px; /* Tạo khoảng cách giữa các nút */
+        }
