@@ -32,7 +32,12 @@ namespace Website_Selling_Computer.Controllers
         }
         public IActionResult Checkout()
         {
-            return View(new Order());
+            var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
+            if (cart == null || !cart.Items.Any())
+            {
+                return RedirectToAction("Index");
+            }
+            return View(new Order{ Cart = cart});
         }
 
 

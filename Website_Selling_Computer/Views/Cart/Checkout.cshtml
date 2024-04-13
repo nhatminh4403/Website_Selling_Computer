@@ -5,11 +5,32 @@
 }
 
 <h1>Checkout</h1>
-
-
+@if (Model != null && Model.Cart != null && Model.Cart.Items != null && Model.Cart.Items.Any())
+{
+    <!-- Display the items in the cart -->
+    <h2>Items in Cart</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+}
 <!-- Display the items in the order -->
-
-
 <form asp-action="Checkout" method="post">
     <div class="form-group">
         <label asp-for="ShippingAddress">Địa chỉ giao hàng</label>
@@ -20,5 +41,5 @@
         <textarea asp-for="Notes" class="form-control"></textarea>
     </div>*@
 
-    <a asp-action="ConfirmCheckout" class="btn btn-edit">Xác nhận đơn hàng</a>
+    <a asp-action="OrderCompleted" class="btn btn-edit">Xác nhận đơn hàng</a>
 </form>
