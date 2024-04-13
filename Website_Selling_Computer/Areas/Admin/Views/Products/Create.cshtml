@@ -3,7 +3,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @using Microsoft.AspNetCore.Identity
-
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{
     ViewData["Title"] = "Create";
     Layout = "_Layout";
@@ -15,8 +15,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create", enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
                 <input asp-for="ProductName" class="form-control" />
@@ -49,7 +49,7 @@
                 <label asp-for="ProductImages" class="control-label"></label>
                 <input type="file" asp-for="ProductImages" class="form-control" multiple accept="image/*" />
                 <span asp-validation-for="ProductImages" class="text-danger"></span>
-            </div>
+            </div> 
             <br />
             <hr />
             <div class="form-group">

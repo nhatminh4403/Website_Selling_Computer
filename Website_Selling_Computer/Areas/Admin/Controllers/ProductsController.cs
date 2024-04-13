@@ -36,8 +36,9 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
             return View(product);
         }
 
-        private async Task<string> SaveImage(IFormFile image)
+        private async Task<string?> SaveImage(IFormFile image)
         {
+            
             var savePath = Path.Combine("wwwroot/images", image.FileName); //
 
             using (var fileStream = new FileStream(savePath, FileMode.Create))
@@ -51,7 +52,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var productDetails = await _productDetailsRepository.GetProductDetailsByIdAsync(id);
-
+            
             if (productDetails == null)
             {
                 return NoContent();
@@ -88,38 +89,37 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product, IFormFile imageUrl, List<IFormFile> images)
+        public async Task<IActionResult> Create(Product product, IFormFile MainImageUrl, List<IFormFile> ProductImages)
         {
             if (product == null)
             {
                 return BadRequest("Product cannot be null");
             }
-            if (IsValidData(product))
+            if (/*IsValidData(product)*/ModelState.IsValid)
             {
-                if (imageUrl != null)
+                
+                if (MainImageUrl !=null)
                 {
-                    product.MainImageUrl = await SaveImage(imageUrl);
+                    product.MainImageUrl = await SaveImage(MainImageUrl);          
                 }
-                if (images != null && images.Count > 0)
+                if (ProductImages != null)
                 {
-                    if (product.ProductImages == null)
-                    {
-                        product.ProductImages = new List<ProductImage>();
-                    }
-                    foreach (var item in images)
+                    product.ProductImages = new List<ProductImage>();
+                    foreach (var item in ProductImages)
                     {
                         ProductImage imageCollection = new ProductImage
                         {
                             ProductID = product.ProductID,
-                            ImageUrl = await SaveImage(item),
+                            ImageUrl = await SaveImage(item)
                         };
                         product.ProductImages.Add(imageCollection);
                     }
                 }
-                int productId = await _productRepository.AddAsync(product);
+                await _productRepository.AddAsync(product);
+             //   int productId = await _productRepository.AddAsync(product);
                 await _productDetailsRepository.AddAsync(new ProductDetail
                 {
-                    ProductID = productId,
+                    ProductID = product.ProductID,
                     BatteryLife = "",
                     CPU = "",
                     Display = "",
@@ -133,7 +133,7 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
 
                 await _inventoryRepository.AddAsync(new Inventory
                 {
-                    ProductID = productId,
+                    ProductID = product.ProductID,
                     QuantityInStock = 0,
                     ReorderLevel = 20
                 });
@@ -229,7 +229,10 @@ namespace Website_Selling_Computer.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var categories = await _productCategoryRepository.GetAllAsync();
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "CategoryID", "Description");
+            ViewBag.Manufacturers = new SelectList(manufacturers, "ManufacturerID", "ManufacturerName");
+
             return View(product);
         }
 

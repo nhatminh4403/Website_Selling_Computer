@@ -81,6 +81,23 @@
     <div class="col-md-6">
         <img src="@Model.Product.MainImageUrl" alt="Product Image" class="img-fluid" width="250px" />
     </div>
+    <div class="mt-4 image-container">
+        <div class="scroll-wrapper">
+            @if (Model.Product.ProductImages != null)
+            {
+                @foreach (var item in Model.Product.ProductImages)
+                {
+                    @if (Model.ProductID == item.ProductID)
+                    {
+                        
+                            <img src="@item.ImageUrl" alt="Product Image" class="img-fluid" />
+                        
+                    }
+
+                }
+            }
+        </div>
+    </div>
 </div>
 @if (User.IsInRole("Admin"))
 {

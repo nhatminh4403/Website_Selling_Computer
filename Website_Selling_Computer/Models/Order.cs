@@ -26,6 +26,10 @@ namespace Website_Selling_Computer.Models
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; } 
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public int? CartID { get; set; }
+        [ForeignKey("CartID")]
+        public virtual Cart Cart { get; set; }
     }
 }

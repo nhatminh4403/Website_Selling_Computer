@@ -14,7 +14,8 @@ namespace Website_Selling_Computer.Models
 
         public virtual ICollection<CartDetail> CartDetails { get; set; }
         public virtual User User { get; set; }
-		[NotMapped]
+        public virtual ICollection<Order> Orders { get; set; }
+        [NotMapped]
         public List<CartDetail> Items { get; set; } = new List<CartDetail>();
 		public void AddItem(CartDetail item)
 		{

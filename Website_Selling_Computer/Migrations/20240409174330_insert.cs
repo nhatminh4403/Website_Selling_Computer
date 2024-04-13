@@ -15,12 +15,12 @@ namespace Website_Selling_Computer.Migrations
                 table: "Manufacturers",
                 columns: new[] { "ManufacturerID", "ManufacturerName", "ContactInfo", "ManufacturerImage" },
                 values: new object[,] {
-                    {1, "DELL", "https://www.dell.com/en-us/lp/contact-us","//manufacturerPictures/dell.png" },
-                    {2, "HP", "https://www.hp.com/us-en/contact-hp/shopping.html","//manufacturerPictures/hp.png" },
-                    {3, "LENOVO", "https://www.lenovo.com/us/en/contact/" ,"//manufacturerPictures/lenovo.png"},
-                    {4, "ACER", "https://www.acer.com/us-en/support/contact-acer","//manufacturerPictures/acer.png" },
-                    {5, "ASUS", "https://www.asus.com/us/support/callus/" ,"//manufacturerPictures/asus.png"},
-                    {6, "MSI","https://us.msi.com/about/contact-us","//manufacturerPictures/icons8-msi-48.png"}
+                    {1, "DELL", "https://www.dell.com/en-us/lp/contact-us","~/manufacturerPictures/dell.png" },
+                    {2, "HP", "https://www.hp.com/us-en/contact-hp/shopping.html","~/manufacturerPictures/hp.png" },
+                    {3, "LENOVO", "https://www.lenovo.com/us/en/contact/" ,"~/manufacturerPictures/lenovo.png"},
+                    {4, "ACER", "https://www.acer.com/us-en/support/contact-acer","~/manufacturerPictures/acer.png" },
+                    {5, "ASUS", "https://www.asus.com/us/support/callus/" ,"~/manufacturerPictures/asus.png"},
+                    {6, "MSI","https://us.msi.com/about/contact-us","~/manufacturerPictures/icons8-msi-48.png"}
                 });
 
             //Enter data for the ProductCategories table
