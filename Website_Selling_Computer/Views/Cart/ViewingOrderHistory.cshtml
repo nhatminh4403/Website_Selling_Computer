@@ -6,41 +6,43 @@
     ViewData["Title"] = "ViewingOrderHistory";
     DateTime now = DateTime.Today;
 }
-<h1>ViewingOrderHistory: </h1>
-@foreach(var item in Model)
-{
-    <p>Tên: @item.User.LastName @item.User.FirstName </p>
-    <p>Email: @item.User.Email</p>
-}
+<h1>Lịch sử đặt hàng: </h1>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
+                Mã đơn hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalAmount)
+                Ngày đặt hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShippingAddress)
+                Tổng giá trị
+            </th>
+            <th>
+                Địa chỉ giao hàng
+            </th>
+            <th>
+                Phương thức thanh toán
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr>
                 <td>@item.OrderID</td>
                 <td>@item.OrderDate</td>
                 <td>@item.TotalAmount</td>
                 <td>@item.ShippingAddress</td>
+                <td>@item.PaymentMethod.Description</td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> 
+                <a asp-action="Details" asp-route-id="@item.OrderID">Chi tiết</a> 
                     @if ((now - item.OrderDate.Date).Days <= 10)
                     {
-                        <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.OrderID">Xóa</a>
                     }
             </td>
         </tr>

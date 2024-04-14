@@ -10,6 +10,10 @@ using Website_Selling_Computer.Extensions;
 using Website_Selling_Computer.Repositories.EntityFrameworks;
 using System.Diagnostics;
 using Website_Selling_Computer.ViewModel;
+using MimeKit;
+using MailKit.Net.Smtp;
+using System.Net;
+using System.Net.Mail;
 
 namespace Website_Selling_Computer.Controllers
 {
@@ -86,18 +90,50 @@ namespace Website_Selling_Computer.Controllers
                 }
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
+
+                if (order.PaymentMethodId == 2)
+                {
+                    string message = "Confirm Checkout"; 
+                     string Text = $"Thank you for your order, {user.UserName}! Your order will be delivered to {order.ShippingAddress}";
+
+                    var client = new System.Net.Mail.SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+                    {
+                        Credentials = new NetworkCredential("5c2154443e6717", "1612ca29a44c6e"),
+                        EnableSsl = true
+                    };
+                    client.Send("STMShop@example.com", user.Email, message, Text);
+                    System.Console.WriteLine("Sent");
+                }
+                if (order.PaymentMethodId == 1)
+                {
+                    /*using (var httpClient = new HttpClient())
+                    {
+                        var content = new FormUrlEncodedContent(new[]
+                        {
+                    new KeyValuePair<string, string>("clientTransactionRef", "your_unique_transaction_ref"),
+                    new KeyValuePair<string, string>("currency", "NGN"),
+                    new KeyValuePair<string, string>("amount", order.TotalAmount.ToString()),
+                });
+
+                        var response = await httpClient.PostAsync("http://localhost:5000/api/transfer", content);
+
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            // Xử lý lỗi
+                            return View("TransferFailed");
+                        }
+                    }*/
+                }
                 HttpContext.Session.Remove("Cart");
                 await HttpContext.Session.CommitAsync();
                 return View("OrderCompleted", order.OrderID); // Trang xác nhận hoàn thành đơn hàng
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id
                 ?? HttpContext.TraceIdentifier});
-            }
-            
+            } 
         }
 
 
@@ -109,17 +145,19 @@ namespace Website_Selling_Computer.Controllers
         public IActionResult Index()
         {
             var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart") ?? new Cart();
+            var cartDetails = _context.CartDetails.Include(cd => cd.Product).ToList();
+            ViewBag.CartDetails= cartDetails;
             return View(cart);
         }
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
-            var product = await GetProductFromDatabase(productId);
+            var product = await _productRepo.GetByIdAsync(productId);
 
             if (product != null)
             {
                 var cartDetail = new CartDetail
                 {
-                    ProductName = product.ProductName,
+                    ProductName = product.ProductName!=null?product.ProductName:"",
                     ProductID = productId,
                     Quantity = quantity,
                     ProductCategoryDescription = product.ProductCategory.Description,
@@ -135,12 +173,6 @@ namespace Website_Selling_Computer.Controllers
             {
                 throw new ProductNotFoundException($"Product with ID {productId} not found.");
             }
-        }
-        private async Task<Product> GetProductFromDatabase(int productId)
-        {
-            return await _context.Products
-            .Include(p => p.ProductCategory)
-            .FirstOrDefaultAsync(p => p.ProductID == productId);
         }
         public IActionResult RemoveFromCart(int productId)
         {

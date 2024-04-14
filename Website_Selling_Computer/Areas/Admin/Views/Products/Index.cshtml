@@ -12,12 +12,66 @@
 }
 <h1>Danh sách sản phẩm</h1>
 
-<p>
+
+<table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+        <tr>
+            <th>SP</th>
+            <th>Mô tả</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+            <th>Nhà cung cấp</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            @foreach(var item in Model)
+            {
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="@item.MainImageUrl"
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">@item.ProductID</p>
+                            <p class="text-muted mb-0">@item.ProductName</p>
+                        </div>
+                    </div>
+                </td>
+                
+                <td>
+                    <p class="fw-normal mb-1">@item.Description</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">@item.Price</p>
+                </td>
+                <td>@item.ProductCategory.Description</td>
+                <td>@item.Manufacturer.ManufacturerName</td>
+                <td>
+                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Details" asp-route-id="@item.ProductID">
+                        Chi tiết
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Delete" asp-route-id="@item.ProductID">
+                        Xóa
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Edit" asp-route-id="@item.ProductID">
+                        Sửa
+                    </button>
+                </td>
+            </tr>
+            }
+        
+        
+    </tbody>
+</table>
+
+@* <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form id="searchForm" method="get" asp-controller="Products" asp-action="SearchByName" asp-route-data="name">
-    <input type="text" id="searchBox" name="name" placeholder="Nhập tên sản phẩm...">
-</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -88,3 +142,4 @@
 }
     </tbody>
 </table>
+ *@
