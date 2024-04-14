@@ -23,7 +23,7 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         public async Task<Order> GetByIdAsync(int id)
         {
 
-            return await _context.Orders.Include(p => p.User).FirstOrDefaultAsync(p => p.OrderID == id);
+            return await _context.Orders.Include(p => p.User).FirstAsync(p => p.OrderID == id);
         }
         public async Task AddAsync(Order order)
         {

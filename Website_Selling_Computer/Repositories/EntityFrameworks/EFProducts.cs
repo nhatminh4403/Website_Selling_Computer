@@ -51,22 +51,22 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
 
         public async Task<ICollection<Product>> FindByNameAsync(string name)
         {
-            List<Product> listProduct = await _context.Products
+            ICollection<Product> listProduct = await _context.Products
                 .Where(p => p.ProductName != null && p.ProductName.Contains(name))
                 .ToListAsync();
             return listProduct;
         }
 
 
-        public async Task<ICollection<Product>> FindByCategoryAsync(int CategoryID)
+        public async Task<ICollection<Product>> FindByCategoryAsync(int categoryID)
         {
-            List<Product> products = await _context.Products.Where(p => p.CategoryID == CategoryID).ToListAsync();
+            ICollection<Product> products = await _context.Products.Where(p => p.CategoryID == categoryID).ToListAsync();
             return products;
         }
 
         public async Task<ICollection<Product>> FindByManufacturerAsync(int ManufacturerID)
         {
-            List<Product> products = await _context.Products.Where(p => p.ManufacturerID == ManufacturerID).ToListAsync();
+            ICollection<Product> products = await _context.Products.Where(p => p.ManufacturerID == ManufacturerID).ToListAsync();
             return products;
         }
     }

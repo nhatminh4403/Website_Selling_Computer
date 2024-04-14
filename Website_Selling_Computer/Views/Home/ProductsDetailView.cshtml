@@ -1,10 +1,103 @@
 ﻿@model Website_Selling_Computer.Models.ProductDetail
-
+<link rel="stylesheet" href="~/css/layout.css">
 @{
     ViewData["Title"] = "ProductsDetailView";
 }
 
-<h2>Chi tiết sản phẩm</h2>
+<section class="ProductDetailView">
+    <main role="main">
+        <div class="container">
+            <div class="ProductDetailView py-3 px-3 my-3 bg-body">
+                <div class="row">
+                    <div class="col-md-4 py-1 px-2 ">
+                        <h2><strong>Chi tiết sản phẩm</strong></h2>
+                    </div>
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="card mb-3" style="max-width:auto;">
+                        <div class="row">
+                            <div class="col-md-4 py-3">
+                                <img src="@Model.Product.MainImageUrl"
+                                     class="img-fluid rounded-start" alt="Product Image" class="img-fluid">
+                            </div>
+                            <div class="col-md-8 py-3">
+                                <div class="card-body">
+                                    <div class="col-md-12">
+                                        <h4><strong class="ms-3 py-2">@Html.DisplayFor(model => model.Product.ProductName)</strong></h4><br>
+                                        <dl class="row">
+                                            <dt class="col-3 ms-3">
+                                                CPU
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.CPU)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                RAM
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.RAM)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Bộ nhớ
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.Storage)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Màn hình
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.Display)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Card Màn hình
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.GraphicsCard)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Hệ điều hành
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.OperatingSystem)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                PIN
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.BatteryLife)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Cân nặng
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.Weight)
+                                            </dd>
+                                            <dt class="col-3 ms-3">
+                                                Bảo hành
+                                            </dt>
+                                            <dd class="col-8">
+                                                @Html.DisplayFor(model => model.Warranty)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div>
+                    <a href="#" class="text-success">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+@* <h2>Chi tiết sản phẩm</h2>
 <div class="row">
     <hr />
     <div class="col-md-6">
@@ -80,4 +173,4 @@
 <div>
     <a asp-controller="Home" asp-action="Index" asp-route-area="">Back to List</a>
 </div>
-
+ *@

@@ -15,10 +15,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STM Store - Trang chủ</title>
-    <link type="image/x-icon" href="./image/logoSTM-01.png" rel="shortcut icon">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link type="image/x-icon" href="~/image/logoSTM-01.png" rel="shortcut icon">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="~/css/style.css">
 </head>
 <body id="page_index" style="background-color: #F3F8FF;">
     <!-- Header -->
@@ -31,16 +31,18 @@
                         <!--logo-->
                         <div class="col-md-2 py-1">
                             <a href="/Home/Index">
-                                <img src="image/logoSTM-01.png" class="img-fluid" alt="logoSTM" width="200" height="auto">
+                                <img src="~/image/logoSTM-01.png" class="img-fluid" alt="logoSTM" width="200" height="auto">
                             </a>
                         </div>
                         <!--Seach-->
                         <div class="col-md-4 pt-2">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm"
-                                       aria-label="Từ khóa tìm kiếm" aria-describedby="basic-addon2">
-                                <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            </div>
+                            <form action="/Home/Search" method="get">
+                                <div class="input-group mb-3">
+                                    <input type="text" name="product" class="form-control" placeholder="Từ khóa tìm kiếm"
+                                           aria-label="Từ khóa tìm kiếm" aria-describedby="basic-addon2">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                </div>
+                            </form>
                         </div>
                         <!-- hotline -->
                         <div class="col-md-2 pt-1">
@@ -108,13 +110,13 @@
                                 </div>
                                 <!--Cart-->
                                 <div class="col-1 py-1">
-                                    <a href="" class="position-relative">
+                                    <a href="/Cart/Index" class="position-relative">
                                         <span class="fs-3">
                                             <i class="fa-solid fa-cart-plus text-light"></i>
                                         </span>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
+                                        @* <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
                                             0<span class="visually-hidden">unread messages</span>
-                                        </span>
+                                        </span> *@
                                     </a>
                                 </div>
                             </div>
@@ -134,10 +136,10 @@
                             Danh mục sản phẩm
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="#">Action</a></li>
-                            <li><a class="dropdown-item active" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider active"></li>
-                            <li><a class="dropdown-item active" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item active" asp-controller="Home" asp-action="ViewProductWithCategory" asp-route-categoryID="1">Laptop văn phòng</a></li>
+                            <li><a class="dropdown-item active" asp-controller="Home" asp-action="ViewProductWithCategory" asp-route-categoryID="2">Laptop Gaming</a></li>
+                            <li><a class="dropdown-item active" asp-controller="Home" asp-action="ViewProductWithCategory" asp-route-categoryID="3">Laptop đồ họa</a></li>
+                            <li><a class="dropdown-item active" asp-controller="Home" asp-action="ViewProductWithCategory" asp-route-categoryID="4">Laptop mỏng nhẹ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -153,10 +155,10 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white active" aria-current="page" href="./index.html">Trang chủ</a>
+                                        <a class="nav-link text-white active" aria-current="page" href="/Home/Index">Trang chủ</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white active" href="#">Tất cả sản phẩm</a>
+                                        <a class="nav-link text-white active" href="/Home/AllProduct">Tất cả sản phẩm</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle text-white active" href="#" role="button" data-bs-toggle="dropdown"
@@ -164,17 +166,13 @@
                                             Laptop
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item active" href="#">Action</a></li>
-                                            <li><a class="dropdown-item active" href="#">Another action</a></li>
-                                            <li><hr class="dropdown-divider active"></li>
-                                            <li><a class="dropdown-item active" href="#">Something else here</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/1">DELL</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/6">MSI</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/5">ASUS</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/4">ACER</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/3">LENOVO</a></li>
+                                            <li><a class="dropdown-item active" href="/Home/ViewProductWithManufacturer/2">HP</a></li>
                                         </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled text-white active" aria-disabled="true">Liên hệ</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled text-white active" aria-disabled="true">Tin công nghệ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -194,7 +192,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <img src="./image/camket_wrapper.png" class="img-fluid" alt="camket_wrapper" width="1296px" height="auto">
+                    <img src="~/image/camket_wrapper.png" class="img-fluid" alt="camket_wrapper" width="1296px" height="auto">
                 </div>
             </div>
         </div>
@@ -364,7 +362,7 @@
             </div>
         </div>
     </section>
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

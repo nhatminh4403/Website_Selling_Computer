@@ -10,12 +10,14 @@ namespace Website_Selling_Computer.Controllers
         private readonly IProduct _productRepo;
         private readonly IProductCategory _productCategoryRepo;
         private readonly IProductDetails _productDetailsRepo;
-        public HomeController(ILogger<HomeController> logger, IProduct productRepo,IProductCategory productCategory,IProductDetails productDetails)
+        private readonly IManufacturer _manufacturerRepository;
+        public HomeController(ILogger<HomeController> logger, IProduct productRepo,IProductCategory productCategory,IProductDetails productDetails,IManufacturer manufacturer)
         {
             _logger = logger;
             _productRepo = productRepo;
             _productCategoryRepo = productCategory;
             _productDetailsRepo = productDetails;
+            _manufacturerRepository = manufacturer;
         }
 
         public async Task<IActionResult> Index()
@@ -25,32 +27,51 @@ namespace Website_Selling_Computer.Controllers
 
             ViewBag.Products = products;
             ViewBag.ProductCategory = productCategories;
-/*            var products = await _productRepo.GetAllAsync();    */
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            /*            var products = await _productRepo.GetAllAsync();    */
             return View();
         }
+        public async Task<IActionResult> AllProduct()
+        {
+            var products = await _productRepo.GetAllAsync();
+            var productCategories = await _productCategoryRepo.GetAllAsync();
 
+            ViewBag.Products = products;
+            ViewBag.ProductCategory = productCategories;
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            /*            var products = await _productRepo.GetAllAsync();    */
+            return View("Search", products);
+        }
         public async Task<IActionResult> ViewProductWithManufacturer(int id)
         {
             var products = await _productRepo.FindByManufacturerAsync(id);
-            return View("Index", products);
+            ViewBag.Categories = await _productCategoryRepo.GetAllAsync();
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            return View("Search", products);
         }
 
         public async Task<IActionResult> ViewProductWithCategory(int categoryID)
         {
             var products = await _productRepo.FindByCategoryAsync(categoryID);
-            return View("Index", products);
+            ViewBag.Categories = await _productCategoryRepo.GetAllAsync();
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            return View("Search", products);
         }
 
         public async Task<IActionResult> ViewProduct(int id)
         {
             var products = await _productRepo.FindByManufacturerAsync(id);
-            return View("Index", products);
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            return View("Search", products);
         }
 
         public async Task<IActionResult> Search(string product)
         {
             var products = await _productRepo.FindByNameAsync(product);
-            return View("Index", products);
+            ViewBag.Products = await _productRepo.GetAllAsync();
+            ViewBag.Categories = await _productCategoryRepo.GetAllAsync();
+            ViewBag.Manu = await _manufacturerRepository.GetAllAsync();
+            return View("Search", products);
         }
 
         public async Task<IActionResult> GetCategoriesView()
