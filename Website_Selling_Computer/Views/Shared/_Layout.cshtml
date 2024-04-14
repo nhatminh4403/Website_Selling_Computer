@@ -27,10 +27,10 @@
                 <div class="row-header">
                     <div class="coll-header main-header--left header-action">
                         <!--danh muc-->
-                        <div class="header-action-item main-header--cate">
+                        <div class="header-action-item main-header--category">
                             <div class="header-action_text">
-                                <a class="header-action__link" href="#" id="site-account-handle" aria-label="Danh mục"
-                                   rel="nofollow" title="Danh mục">
+                                <a class="header-action__link" href="#" id="site-menu-handle" aria-label="Danh mục"
+                                   title="Danh mục">
                                     <span class="box-icon">
                                         <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -51,35 +51,41 @@
                                     </svg>
                                 </span>
                             </div>
-                            <div class="header-action_dropdown cate-dropdown">
-                                <div class="header-cate-dropdown-cover">
+
+                            <div class="header-action_dropdown category-dropdown">
+                                <div class="header-dropdown-cover">
                                     <div class="greeting block--1">
-                                        <div class="thing">
-                                            <div class="d-flex flex-column">
-                                                <div class="thing-name">
-                                                    Bạn muốn xem gì?
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="actions">
                                             <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 6 })'">
                                                 MSI
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 5})'">
                                                 ASUS
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 2 })'">
                                                 HP
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 3 })'">
                                                 LENOVO
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 4 })'">
                                                 ACER
                                             </button>
-                                            <button class="js-account">
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProduct", "Home", new { id = 1 })'">
                                                 DELL
                                             </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 1 })'">
+                                                Laptop Văn phòng
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 2 })'">
+                                                Laptop Gaming
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 3 })'">
+                                                Laptop đồ họa
+                                            </button>
+                                            <button class="js-account" onclick="window.location.href='@Url.Action("ViewProductWithCategory", "Home", new { categoryID = 4 })'">
+                                                Laptop mỏng nhẹ
+                                            </button> 
                                         </div>
                                     </div>
                                 </div>
@@ -98,11 +104,11 @@
                         <!-- search -->
                         <div class="header-action-item main-header--search">
                             <div class="header-action_dropdown_mb search-box wpo-wrapper-search">
-                                <form action="/search" class="searchform-product searchform-categoris ultimate-search"
+                                <form action="/Home/Search" class="searchform-product searchform-categoris ultimate-search"
                                       id="searchform-product">
                                     <div class="wpo-search-inner">
                                         <input type="hidden" name="type" value="product">
-                                        <input required="" id="inputSearchAuto" class="input-search" name="q"
+                                        <input required="" id="inputSearchAuto" class="input-search" name="product"
                                                maxlength="40" autocomplete="off" type="text" size="20"
                                                placeholder="Bạn cần tìm gì?">
                                     </div>
@@ -178,7 +184,7 @@
                         <!-- gio hang -->
                         <div class="header-action-item main-header--cart">
                             <div class="header-action_text">
-                                <a class="header-action__link header-action_clicked" id="site-cart-handle" href="/Cart/Index">
+                                <a class="header-action__link header-action_clicked" id="site-cart-handle" href="@Url.Action("Index", "Cart", new { area = "" })">
                                     <span class="box-icon">
                                         <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.22111 3L3.84216 1H1M4.22111 3H19L15.2105 12.0455H5.73689M4.22111 3L5.73689 12.0455M5.73689 12.0455L3.56458 13.293C2.96774 13.923 3.5309 14.9091 4.375 14.9091H9.625H12.25L15.2105 15M15.2105 15C14.708 15 14.2261 15.2107 13.8708 15.5858C13.5154 15.9609 13.3158 16.4696 13.3158 17C13.3158 17.5304 13.5154 18.0391 13.8708 18.4142C14.2261 18.7893 14.708 19 15.2105 19C15.7131 19 16.195 18.7893 16.5503 18.4142C16.9056 18.0391 17.1053 17.5304 17.1053 17C17.1053 16.4696 16.9056 15.9609 16.5503 15.5858C16.195 15.2107 15.7131 15 15.2105 15ZM7.63162 17C7.63162 17.5304 7.432 18.0391 7.07667 18.4142C6.72134 18.7893 6.2394 19 5.73689 19C5.23438 19 4.75245 18.7893 4.39711 18.4142C4.04178 18.0391 3.84216 17.5304 3.84216 17C3.84216 16.4696 4.04178 15.9609 4.39711 15.5858C4.75245 15.2107 5.23438 15 5.73689 15C6.2394 15 6.72134 15.2107 7.07667 15.5858C7.432 15.9609 7.63162 16.4696 7.63162 17Z"
@@ -238,10 +244,14 @@
                                             </svg>
                                         </span>
                                     </span>
-                                    <span class="box-text">
-                                        <span class="txtnw">Đăng</span>
-                                        <span class="txtbl">nhập</span>
-                                    </span>
+                                    @if (!User.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <span class="box-text">
+                                            <span class="txtnw">Đăng</span>
+                                            <span class="txtbl">nhập</span>
+                                        </span>
+                                    }
+                                    
                                 </a>
                                 }
                                 <span class="box-triangle">
@@ -275,29 +285,49 @@
                                                     </defs>
                                                 </svg>
                                             </div>
-                                            <div class="d-flex flex-column">
-                                                <div class="thing-name">Xin chào, vui lòng đăng nhập</div><partial name="_LoginPartial" />
-                                                
+                                            @if (User.Identity?.IsAuthenticated??false)
+                                            {
+                                                <div class="d-flex flex-column">
+                                                    <div class="thing-name">Xin chào, @User.Identity.Name</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex flex-column">
+                                                <div class="thing-name">Xin chào, vui lòng đăng nhập</div>
                                             </div>
+                                            }
+                                            
                                         </div>
 
-                                         <div class="actions">
-                                            <button class="js-account" data-box="acc-login-box" onclick="window.location.href='/Identity/Account/Login'">
-                                                ĐĂNG NHẬP
-                                                 
-                                        
-                                           </button>
-                                            <button class="js-account" data-box="acc-register-box" onclick="window.location.href='/Identity/Account/Register'">
-                                                ĐĂNG KÝ
-                                            </button>
-                                        </div> 
-                                        
+                                        <div class="actions">
+                                            @if (User.Identity?.IsAuthenticated ?? false)
+                                            {
+                                                <!-- Các nút khi người dùng đã đăng nhập -->
+                                                <button class="js-account" data-box="acc-manage-box" onclick="window.location.href='/Identity/Account/Manage'">
+                                                    QUẢN LÝ TÀI KHOẢN
+                                                </button>
+                                                <button class="js-account" data-box="acc-logout-box" onclick="window.location.href='/Identity/Account/Logout'">
+                                                    ĐĂNG XUẤT
+                                                </button>
+                                                
+                                                <!-- Thêm các nút khác tại đây -->
+                                            }
+                                            else
+                                            {
+                                                <!-- Các nút khi người dùng chưa đăng nhập -->
+                                                <button class="js-account" data-box="acc-login-box" onclick="window.location.href='/Identity/Account/Login'">
+                                                    ĐĂNG NHẬP
+                                                </button>
+                                                <button class="js-account" data-box="acc-register-box" onclick="window.location.href='/Identity/Account/Register'">
+                                                    ĐĂNG KÝ
+                                                </button>
+                                            }
+                                        </div>
                                     </div>
-                                    
                                 </div>
                             </div>
-                             
-                        </div>  *@
+                        </div>
                     </div>
                 </div>
             </div>

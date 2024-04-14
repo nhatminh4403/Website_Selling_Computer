@@ -12,7 +12,7 @@ using Website_Selling_Computer.DataAccess;
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    [Migration("20240413020607_insertData")]
+    [Migration("20240414065642_insertData")]
     partial class insertData
     {
         /// <inheritdoc />
@@ -274,9 +274,6 @@ namespace Website_Selling_Computer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
-                    b.Property<int?>("CartID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -293,8 +290,6 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderID");
-
-                    b.HasIndex("CartID");
 
                     b.HasIndex("UserID");
 
@@ -638,17 +633,11 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>
                 {
-                    b.HasOne("Website_Selling_Computer.Models.Cart", "Cart")
-                        .WithMany("Orders")
-                        .HasForeignKey("CartID");
-
                     b.HasOne("Website_Selling_Computer.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });
@@ -716,8 +705,6 @@ namespace Website_Selling_Computer.Migrations
             modelBuilder.Entity("Website_Selling_Computer.Models.Cart", b =>
                 {
                     b.Navigation("CartDetails");
-
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>

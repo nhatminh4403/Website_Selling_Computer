@@ -2,9 +2,21 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-/*document.getElementById('searchForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định của form submit
-    var name = document.getElementById('searchBox').value; // Lấy giá trị từ hộp tìm kiếm
-    this.action = '/Products/SearchByName?name=' + encodeURIComponent(name); // Cập nhật action của form
-    this.submit(); // Submit form
+/*document.getElementById('searchform-product').addEventListener('submit', function (event) {
+    event.preventDefault(); // ngăn chặn hành vi mặc định của form
+
+    var inputSearch = document.getElementById('inputSearchAuto');
+    var searchQuery = inputSearch.value; // lấy giá trị từ input
+
+    // tạo yêu cầu AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/search?type=product&q=' + encodeURIComponent(searchQuery), true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // khi nhận được kết quả, hiển thị nó trong #ajaxSearchResults
+            document.getElementById('ajaxSearchResults').style.display = 'block';
+            document.querySelector('.resultsContent').innerHTML = xhr.responseText;
+        }
+    }
+    xhr.send();
 });*/

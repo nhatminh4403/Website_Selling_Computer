@@ -10,7 +10,7 @@
 }
 
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
+    @if (SignInManager.IsSignedIn(User) && user != null)
     {
         <div class="nav-items">
             <div class="nav"> 
