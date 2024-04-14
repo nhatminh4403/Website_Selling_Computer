@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\lib\easing\easing.js" />
     <None Include="wwwroot\lib\easing\easing.min.js" />
     <None Include="wwwroot\lib\owlcarousel\LICENSE" />
@@ -132,6 +128,10 @@
     <None Include="wwwroot\mail\contact.js" />
     <None Include="wwwroot\mail\contact.php" />
     <None Include="wwwroot\mail\jqBootstrapValidation.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

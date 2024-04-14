@@ -19,27 +19,31 @@ namespace Website_Selling_Computer.Controllers
         private readonly WebsiteSellingComputerDbContext _context;
         private readonly IProduct _productRepo;
         private readonly IOrder _orderRepo;
+        private readonly IPayingMethod _methodRepo;
         private readonly UserManager<User> _userManager;
         public CartController(WebsiteSellingComputerDbContext context,
-           IProduct productRepo, UserManager<User> userManager, IOrder orderRepo)
+           IProduct productRepo, UserManager<User> userManager, IOrder orderRepo, IPayingMethod methodRepo)
         {
             _context = context;
             _productRepo = productRepo;
             _userManager = userManager;
             _orderRepo = orderRepo;
+            _methodRepo = methodRepo;
         }
         public IActionResult NotFound(string errorMessage)
         {
             ViewBag.ErrorMessage = errorMessage;
             return View();
         }
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
             var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
             if (cart == null || !cart.Items.Any())
             {
                 return RedirectToAction("Index");
             }
+            var paymentMethod = await _methodRepo.GetAllAsync();
+            ViewData["PaymentMethods"] = paymentMethod;
             var viewModel = new CartViewModel
             {
                 Cart = cart,

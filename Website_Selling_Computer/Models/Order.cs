@@ -27,6 +27,11 @@ namespace Website_Selling_Computer.Models
         public virtual User User { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [Required]
+        public int PaymentMethodId { get; set; }
+
+        [ForeignKey("PaymentMethodId")]
+        public virtual PaymentMethod PaymentMethod { get; set; }
 
     }
 }
