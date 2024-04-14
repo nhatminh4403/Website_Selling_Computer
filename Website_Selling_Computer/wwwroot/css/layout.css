@@ -1,0 +1,15 @@
+.header-action_text {
+  position: relative;
+  height: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+.box-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    text-align: center; }

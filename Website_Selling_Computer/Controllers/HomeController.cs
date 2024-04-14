@@ -20,13 +20,18 @@ namespace Website_Selling_Computer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productRepo.GetAllAsync();    
-            return View(products);
+            var products = await _productRepo.GetAllAsync(); 
+            var productCategories = await _productCategoryRepo.GetAllAsync();
+
+            ViewBag.Products = products;
+            ViewBag.ProductCategory = productCategories;
+/*            var products = await _productRepo.GetAllAsync();    */
+            return View();
         }
 
-        public async Task<IActionResult> ViewProductWithManufacturer(int manufacturerID)
+        public async Task<IActionResult> ViewProductWithManufacturer(int id)
         {
-            var products = await _productRepo.FindByCategoryAsync(manufacturerID);
+            var products = await _productRepo.FindByManufacturerAsync(id);
             return View("Index", products);
         }
 

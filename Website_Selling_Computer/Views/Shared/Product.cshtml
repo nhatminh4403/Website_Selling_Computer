@@ -1,0 +1,27 @@
+﻿
+@{
+    foreach(var item in Model)
+    {
+        string image = item.MainImageUrl;
+        string name = item.ProductName;
+        string price = item.Price.ToString();
+        <div class="rol-md-3 mx-lg-0">
+            <a href="" title="" class="link-offset-2 link-underline link-underline-opacity-0 text-black">
+                <div class="card my-3">
+                    <img src="@image" class="card-img-top" alt="#">
+                    <div class="card-body">
+                        <h4 class="card-title">@name</h4>
+                        <p class="card-text">
+                            <div class="price">
+                                <span class="price-old text-danger"><b><h5>@price</h5></b></span>
+                            </div>
+                        </p>
+                        <a href="#" class="btn btn-success" style="text-align-last: center;">Mua ngay</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+   
+}
+
