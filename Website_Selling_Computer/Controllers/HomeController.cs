@@ -23,6 +23,13 @@ namespace Website_Selling_Computer.Controllers
             var products = await _productRepo.GetAllAsync();    
             return View(products);
         }
+
+        public async Task<IActionResult> ViewProductWithManufacturer(int manufacturerID)
+        {
+            var products = await _productRepo.FindByCategoryAsync(manufacturerID);
+            return View("Index", products);
+        }
+
         public async Task<IActionResult> ViewProductWithCategory(int categoryID)
         {
             var products = await _productRepo.FindByCategoryAsync(categoryID);
