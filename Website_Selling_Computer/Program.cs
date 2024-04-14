@@ -35,7 +35,7 @@ builder.Services.AddScoped<ICart, EFCart>();
 builder.Services.AddScoped<I_Inventory, EFInventory>();
 builder.Services.AddScoped<IOrder, EFOrder>();
 builder.Services.AddScoped<IOrderDetails, EFOrderDetails>();
-
+builder.Services.AddScoped<IPayingMethod, EFPayingMethod>();
 builder.Services.AddScoped<IProductDetails,EFProductDetails>();
 builder.Services.ConfigureApplicationCookie(option =>
 {

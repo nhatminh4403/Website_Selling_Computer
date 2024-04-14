@@ -12,7 +12,7 @@ using Website_Selling_Computer.DataAccess;
 namespace Website_Selling_Computer.Migrations
 {
     [DbContext(typeof(WebsiteSellingComputerDbContext))]
-    [Migration("20240414065631_init")]
+    [Migration("20240414161947_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -277,6 +277,9 @@ namespace Website_Selling_Computer.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -290,6 +293,8 @@ namespace Website_Selling_Computer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderID");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.HasIndex("UserID");
 
@@ -323,6 +328,23 @@ namespace Website_Selling_Computer.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Website_Selling_Computer.Models.PaymentMethod", b =>
+                {
+                    b.Property<int>("PaymentMethodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentMethodId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PaymentMethodId");
+
+                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Product", b =>
@@ -633,11 +655,19 @@ namespace Website_Selling_Computer.Migrations
 
             modelBuilder.Entity("Website_Selling_Computer.Models.Order", b =>
                 {
+                    b.HasOne("Website_Selling_Computer.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Website_Selling_Computer.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PaymentMethod");
 
                     b.Navigation("User");
                 });

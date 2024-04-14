@@ -387,6 +387,14 @@ namespace Website_Selling_Computer.Migrations
 {117,24,"https://dlcdnwebimgs.asus.com/gain/0825e059-c421-4f63-98bb-485bfbc31050/w800"},
 {118,24,"https://dlcdnwebimgs.asus.com/gain/3c2b1ef6-cbcb-4d15-b379-cc1b1c97f808/w800"}
                 });
+            migrationBuilder.InsertData(
+               table: "PaymentMethods",
+               columns: new[] { "PaymentMethodId", "Description" },
+               values: new object[,]
+               {
+                    {1,"Chuyển khoản"},
+                    {2,"Thanh toán khi nhận hàng" }
+               });
         }
 
         /// <inheritdoc />
