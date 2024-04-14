@@ -35,6 +35,12 @@ namespace Website_Selling_Computer.Controllers
             return View("Index", products);
         }
 
+        public async Task<IActionResult> Search(string product)
+        {
+            var products = await _productRepo.FindByNameAsync(product);
+            return View("Index", products);
+        }
+
         public async Task<IActionResult> GetCategoriesView()
         {
             var categories = await _productCategoryRepo.GetAllAsync();

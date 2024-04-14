@@ -104,11 +104,11 @@
                         <!-- search -->
                         <div class="header-action-item main-header--search">
                             <div class="header-action_dropdown_mb search-box wpo-wrapper-search">
-                                <form action="/search" class="searchform-product searchform-categoris ultimate-search"
+                                <form action="/Home/Search" class="searchform-product searchform-categoris ultimate-search"
                                       id="searchform-product">
                                     <div class="wpo-search-inner">
                                         <input type="hidden" name="type" value="product">
-                                        <input required="" id="inputSearchAuto" class="input-search" name="q"
+                                        <input required="" id="inputSearchAuto" class="input-search" name="product"
                                                maxlength="40" autocomplete="off" type="text" size="20"
                                                placeholder="Bạn cần tìm gì?">
                                     </div>
@@ -232,10 +232,14 @@
                                             </svg>
                                         </span>
                                     </span>
-                                    <span class="box-text">
-                                        <span class="txtnw">Đăng</span>
-                                        <span class="txtbl">nhập</span>
-                                    </span>
+                                    @if (!User.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <span class="box-text">
+                                            <span class="txtnw">Đăng</span>
+                                            <span class="txtbl">nhập</span>
+                                        </span>
+                                    }
+                                    
                                 </a>
 
                                 <span class="box-triangle">
@@ -269,21 +273,45 @@
                                                     </defs>
                                                 </svg>
                                             </div>
-                                            <div class="d-flex flex-column">
+                                            @if (User.Identity?.IsAuthenticated??false)
+                                            {
+                                                <div class="d-flex flex-column">
+                                                    <div class="thing-name">Xin chào, @User.Identity.Name</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex flex-column">
                                                 <div class="thing-name">Xin chào, vui lòng đăng nhập</div>
                                             </div>
+                                            }
+                                            
                                         </div>
 
-                                        @* <div class="actions">
-                                            <button class="js-account" data-box="acc-login-box" onclick="window.location.href='/Identity/Account/Login'">
-                                                ĐĂNG NHẬP *@
-                                                 <partial name="_LoginPartial" />
-                                        
-                                     @*        </button>
-                                            <button class="js-account" data-box="acc-register-box" onclick="window.location.href='/Identity/Account/Register'">
-                                                ĐĂNG KÝ
-                                            </button>
-                                        </div> *@
+                                        <div class="actions">
+                                            @if (User.Identity?.IsAuthenticated ?? false)
+                                            {
+                                                <!-- Các nút khi người dùng đã đăng nhập -->
+                                                <button class="js-account" data-box="acc-manage-box" onclick="window.location.href='/Identity/Account/Manage'">
+                                                    QUẢN LÝ TÀI KHOẢN
+                                                </button>
+                                                <button class="js-account" data-box="acc-logout-box" onclick="window.location.href='/Identity/Account/Logout'">
+                                                    ĐĂNG XUẤT
+                                                </button>
+                                                
+                                                <!-- Thêm các nút khác tại đây -->
+                                            }
+                                            else
+                                            {
+                                                <!-- Các nút khi người dùng chưa đăng nhập -->
+                                                <button class="js-account" data-box="acc-login-box" onclick="window.location.href='/Identity/Account/Login'">
+                                                    ĐĂNG NHẬP
+                                                </button>
+                                                <button class="js-account" data-box="acc-register-box" onclick="window.location.href='/Identity/Account/Register'">
+                                                    ĐĂNG KÝ
+                                                </button>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
