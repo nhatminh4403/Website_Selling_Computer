@@ -83,7 +83,7 @@ namespace Website_Selling_Computer.Controllers
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.Remove("Cart");
-                HttpContext.Session.CommitAsync();
+                await HttpContext.Session.CommitAsync();
                 return View("OrderCompleted", order.OrderID); // Trang xác nhận hoàn thành đơn hàng
 
             }

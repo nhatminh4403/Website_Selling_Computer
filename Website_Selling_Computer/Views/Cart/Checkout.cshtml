@@ -1,8 +1,9 @@
-﻿@model Website_Selling_Computer.ViewModel.CartViewModel
-
+﻿@model CartViewModel
+@using Website_Selling_Computer.ViewModel
 @{
     ViewData["Title"] = "Checkout";
 }
+
 <h1>Checkout</h1>
 
 
@@ -31,13 +32,10 @@
     </table>
 
 }
-<!-- Display the items in the order -->
 <form asp-action="Checkout" method="post">
     <div class="form-group">
         <label asp-for="Order.ShippingAddress">Địa chỉ giao hàng</label>
         <input asp-for="Order.ShippingAddress" class="form-control" />
     </div>
- 
-
-    <a asp-action="OrderCompleted" class="btn btn-edit">Xác nhận đơn hàng</a>
+    <button type="submit" class="btn btn-primary">Đặt hàng</button>
 </form>
