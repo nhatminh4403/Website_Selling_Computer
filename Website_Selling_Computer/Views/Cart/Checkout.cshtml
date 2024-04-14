@@ -37,5 +37,14 @@
         <label asp-for="Order.ShippingAddress">Địa chỉ giao hàng</label>
         <input asp-for="Order.ShippingAddress" class="form-control" />
     </div>
+    <div class="form-group">
+        <label for="paymentMethod">Phương thức thanh toán</label>
+        <select id="paymentMethod" name="paymentMethod" class="form-control">
+            <option value="1">Chuyển khoản</option>
+            <option value="2">Thanh toán khi nhận hàng</option>
+            <!-- Add additional payment methods here if needed -->
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Đặt hàng</button>
+
 </form>

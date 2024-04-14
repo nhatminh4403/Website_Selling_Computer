@@ -15,7 +15,7 @@ namespace Website_Selling_Computer.DataAccess
         public DbSet<CartDetail> CartDetails { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
-
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -29,5 +29,6 @@ namespace Website_Selling_Computer.DataAccess
         public DbSet<ProductImage> ProductImages { get; set; }
 
         public DbSet<User> Users { get; set; }
+        
     }
 }
