@@ -63,7 +63,10 @@
     }
     @if (Model.Items.Count == 0)
     {
-        <p>Cart is empty.</p>
+        <p>Giỏ hàng trống.</p>
+        <div>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-edit">Trở về</a>
+        </div>
     }
     else
     {

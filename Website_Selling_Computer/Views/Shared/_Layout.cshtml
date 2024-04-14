@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Website_Selling_Computer.styles.css" asp-append-version="true" />
-    <link rel="shortcut icon" href="~/icons/programming.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/resources/logo/logoSTM-02.ico"  type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
@@ -406,7 +406,7 @@
                         <!-- gio hang -->
                         <div class="header-action-item main-header--cart">
                             <div class="header-action_text">
-                                <a class="header-action__link header-action_clicked" id="site-cart-handle" href="/Cart/Index">
+                                <a class="header-action__link header-action_clicked" id="site-cart-handle" href="@Url.Action("Index", "Cart", new { area = "" })">
                                     <span class="box-icon">
                                         <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.22111 3L3.84216 1H1M4.22111 3H19L15.2105 12.0455H5.73689M4.22111 3L5.73689 12.0455M5.73689 12.0455L3.56458 13.293C2.96774 13.923 3.5309 14.9091 4.375 14.9091H9.625H12.25L15.2105 15M15.2105 15C14.708 15 14.2261 15.2107 13.8708 15.5858C13.5154 15.9609 13.3158 16.4696 13.3158 17C13.3158 17.5304 13.5154 18.0391 13.8708 18.4142C14.2261 18.7893 14.708 19 15.2105 19C15.7131 19 16.195 18.7893 16.5503 18.4142C16.9056 18.0391 17.1053 17.5304 17.1053 17C17.1053 16.4696 16.9056 15.9609 16.5503 15.5858C16.195 15.2107 15.7131 15 15.2105 15ZM7.63162 17C7.63162 17.5304 7.432 18.0391 7.07667 18.4142C6.72134 18.7893 6.2394 19 5.73689 19C5.23438 19 4.75245 18.7893 4.39711 18.4142C4.04178 18.0391 3.84216 17.5304 3.84216 17C3.84216 16.4696 4.04178 15.9609 4.39711 15.5858C4.75245 15.2107 5.23438 15 5.73689 15C6.2394 15 6.72134 15.2107 7.07667 15.5858C7.432 15.9609 7.63162 16.4696 7.63162 17Z"
@@ -435,10 +435,22 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Tài khoản-->
+                        <!--tai khoan-->
                         <div class="header-action-item main-header--account hide-mb">
                             <div class="header-action_text">
-                                <a class="header-action__link" href="/Identity/Account/Login" rel="nofollow" id="site-account-handle"
+
+                                <partial name="_LoginPartial" />
+
+                            </div>
+                            
+                        </div>
+                        
+                        <!--Tài khoản-->
+                        @*  <div class="header-action-item main-header--account hide-mb">
+                            <div class="header-action_text">
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <a class="header-action__link" href="@Url.Action("Login", "Account", new { area = "Identity" })" rel="nofollow" id="site-account-handle"
                                    aria-label="Tài khoản" title="Tài khoản">
                                     <span class="box-icon">
                                         <svg viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -463,17 +475,17 @@
                                     }
                                     
                                 </a>
-
+                                }
                                 <span class="box-triangle">
                                     <svg viewBox="0 0 20 9" role="presentation">
                                         <path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z"
                                               fill="#ffffff"></path>
                                     </svg>
                                 </span>
-
                             </div>
+                            
                             <!-- dăng ký-đăng nhập         -->
-                            <div class="header-action_dropdown account-dropdown">
+                             <div class="header-action_dropdown account-dropdown">
                                 <div class="header-dropdown-cover not-logged-account-dropdown">
                                     <div class="greeting block--1">
                                         <div class="thing">

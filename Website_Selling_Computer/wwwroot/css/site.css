@@ -84,6 +84,30 @@ body {
     line-height: 1.6;
     margin: 0;
 }
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-item {
+    margin-right: 10px; /* Adjust spacing between items */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+}
+
+    .nav-link:hover {
+        color: #000; /* Change color on hover if needed */
+    }
 
 p {
     font-size: 1.2em;

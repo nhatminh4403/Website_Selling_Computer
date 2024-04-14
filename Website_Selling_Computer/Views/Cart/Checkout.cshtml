@@ -1,10 +1,11 @@
-﻿@model Website_Selling_Computer.Models.Order
+﻿@model Website_Selling_Computer.ViewModel.CartViewModel
 
 @{
     ViewData["Title"] = "Checkout";
 }
-
 <h1>Checkout</h1>
+
+
 @if (Model != null && Model.Cart != null && Model.Cart.Items != null && Model.Cart.Items.Any())
 {
     <!-- Display the items in the cart -->
@@ -28,18 +29,15 @@
             }
         </tbody>
     </table>
-    
+
 }
 <!-- Display the items in the order -->
 <form asp-action="Checkout" method="post">
     <div class="form-group">
-        <label asp-for="ShippingAddress">Địa chỉ giao hàng</label>
-        <input asp-for="ShippingAddress" class="form-control" />
+        <label asp-for="Order.ShippingAddress">Địa chỉ giao hàng</label>
+        <input asp-for="Order.ShippingAddress" class="form-control" />
     </div>
-   @* <div class="form-group">
-        <label asp-for="Notes">Ghi chú</label>
-        <textarea asp-for="Notes" class="form-control"></textarea>
-    </div>*@
+ 
 
     <a asp-action="OrderCompleted" class="btn btn-edit">Xác nhận đơn hàng</a>
 </form>

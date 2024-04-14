@@ -13,7 +13,9 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
         }
         public async Task<IEnumerable<Cart>> GetAllAsync()
         {
-            return await _context.Carts.ToListAsync();
+            return await _context.Carts
+/*                .Include(p=>p.Orders)
+*/                .ToListAsync();
         }
         public async Task<Cart> GetByIdAsync(int id)
         {
