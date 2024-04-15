@@ -51,16 +51,10 @@
                 <td>@item.ProductCategory.Description</td>
                 <td>@item.Manufacturer.ManufacturerName</td>
                 <td>
-                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Details" asp-route-id="@item.ProductID">
-                        Chi tiết
-                    </button>
-                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Delete" asp-route-id="@item.ProductID">
-                        Xóa
-                    </button>
-                    <button type="button" class="btn btn-link btn-sm btn-rounded" asp-action="Edit" asp-route-id="@item.ProductID">
-                        Sửa
-                    </button>
-                </td>
+                <a asp-action="Details" asp-route-id="@item.ProductID">Chi tiết </a>
+                <a asp-action="Edit" asp-route-id="@item.ProductID">Chỉnh sửa </a>
+                <a asp-action="Delete" asp-route-id="@item.ProductID">Xóa </a>
+            </td>
             </tr>
             }
         

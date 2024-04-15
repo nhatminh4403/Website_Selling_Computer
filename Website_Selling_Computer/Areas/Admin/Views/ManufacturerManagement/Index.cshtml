@@ -7,19 +7,19 @@
     ViewData["Title"] = "Index"; Layout = "_Layout";
 }
 
-<h1>Index</h1>
+<h1>Nhà sản xuất</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ManufacturerName)
+                <p>Tên nhà sản xuất</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactInfo)
+                <p>Thông tin liên lạc</p>
             </th>
             <th>
                 <p>Ảnh NSX</p>
@@ -40,8 +40,8 @@
                     <img src="@Html.DisplayFor(modelitem=> item.ManufacturerImage)" width="69px" />
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ManufacturerID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ManufacturerID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ManufacturerID">Chỉnh sửa</a> |
+                <a asp-action="Delete" asp-route-id="@item.ManufacturerID">Xóa</a>
             </td>
         </tr>
 }

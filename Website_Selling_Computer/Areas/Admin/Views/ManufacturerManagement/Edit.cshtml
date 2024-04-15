@@ -7,9 +7,8 @@
     ViewData["Title"] = "Edit"; Layout = "_Layout";
 }
 
-<h1>Edit</h1>
+<h1>Chỉnh sửa thông tin nhà sản xuất</h1>
 
-<h4>Manufacturer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,28 +16,28 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ManufacturerID" />
             <div class="form-group">
-                <label asp-for="ManufacturerName" class="control-label"></label>
+                <label asp-for="ManufacturerName" class="control-label">Tên nhà sản xuất</label>
                 <input asp-for="ManufacturerName" class="form-control" />
                 <span asp-validation-for="ManufacturerName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContactInfo" class="control-label"></label>
+                <label asp-for="ContactInfo" class="control-label">Thông tin liên lạc</label>
                 <input asp-for="ContactInfo" class="form-control" />
                 <span asp-validation-for="ContactInfo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ManufacturerImage" class="control-label"></label>
+                <label asp-for="ManufacturerImage" class="control-label">Ảnh NSX</label>
                 <input asp-for="ManufacturerImage" class="form-control" type="file" accept="image/*" />
                 <span asp-validation-for="ManufacturerImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về danh sách</a>
 </div>
 

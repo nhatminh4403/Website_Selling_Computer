@@ -17,13 +17,14 @@ namespace Website_Selling_Computer.Repositories.EntityFrameworks
 
             return await _context.Orders
             .Include(p => p.User)
-/*            .Include(p=>p.Cart)*/
+           .Include(p=>p.PaymentMethod)
             .ToListAsync();
         }
         public async Task<Order> GetByIdAsync(int id)
         {
 
-            return await _context.Orders.Include(p => p.User).FirstAsync(p => p.OrderID == id);
+            return await _context.Orders.Include(p => p.User)
+                .Include(p => p.PaymentMethod).FirstAsync(p => p.OrderID == id);
         }
         public async Task AddAsync(Order order)
         {

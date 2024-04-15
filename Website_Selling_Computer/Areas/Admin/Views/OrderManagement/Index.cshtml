@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderID)
+                ID Đơn hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
+                Ngày đặt hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalAmount)
+                Tổng số tiền
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShippingAddress)
+                Địa chỉ giao hàng
             </th>
             <th></th>
         </tr>
@@ -53,8 +53,8 @@
                 </td>
                
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.OrderID">Chi tiết dơn hàng</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrderID">Xóa</a>
                 </td>
             </tr>
         }

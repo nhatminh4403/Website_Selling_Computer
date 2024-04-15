@@ -24,6 +24,9 @@
             <th>
                 Địa chỉ giao hàng
             </th>
+            <th>
+                Phương thức thanh toán
+            </th>
             <th></th>
         </tr>
         </thead>
@@ -34,8 +37,11 @@
                 <td>@item.OrderDate</td>
                 <td>@item.TotalAmount</td>
                 <td>@item.ShippingAddress</td>
-                <td>@item.PaymentMethod.Description</td>
-            <td>
+                @if(item.PaymentMethodId == item.PaymentMethod.PaymentMethodId){
+                    <td>@item.PaymentMethod.Description</td>
+                }
+@*                 
+ *@            <td>
                @if ((now - item.OrderDate.Date).Days <= 10)
                {
                  <a asp-action="Delete" asp-route-id="@item.OrderID">Xóa</a>

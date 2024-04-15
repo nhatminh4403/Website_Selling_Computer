@@ -8,14 +8,14 @@
 
 }
 
-<h1>Details</h1>
+<h1>Chi tiết danh mục</h1>
 
 <div>
-    <h4>ProductCategory</h4>
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            <p>Tên danh mục</p>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
@@ -24,6 +24,6 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.CategoryID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.CategoryID" class="btn btn-danger">Chỉnh sửa</a> |
+    <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
 </div>

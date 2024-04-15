@@ -209,7 +209,7 @@ namespace Website_Selling_Computer.Controllers
             {
                 return Forbid();  
             }
-            var orders = await _context.Orders.Include(i=>i.OrderDetails).Where(o=>o.UserID == user.Id).ToListAsync();
+            var orders = await _context.Orders.Include(i=>i.OrderDetails).Include(i=>i.PaymentMethod).Where(o=>o.UserID == user.Id).ToListAsync();
             return View(orders);
         }
     }
