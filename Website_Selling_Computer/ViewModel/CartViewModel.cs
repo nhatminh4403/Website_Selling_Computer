@@ -5,5 +5,7 @@ namespace Website_Selling_Computer.ViewModel
     {
         public Cart? Cart { get; set; }
         public Order? Order { get; set; }
+
+        public string PaymentMethod { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Website_Selling_Computer.Models;
 using Website_Selling_Computer.DataAccess;
 using Website_Selling_Computer.Repositories.Interfaces;
 using Website_Selling_Computer.Repositories.EntityFrameworks;
+using Website_Selling_Computer.PaymentMethods.VNPay.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,9 @@ builder.Services.ConfigureApplicationCookie(option =>
     option.LogoutPath = $"/Identity/Account/AccessDenied";
 
 });
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
+
+
 var app = builder.Build();
 
 
